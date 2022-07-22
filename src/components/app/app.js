@@ -69,6 +69,7 @@ class App extends Component {
                     downloadId: prevState.clientId,
                     clientId: uuidv4().split('-').join(''),
                     loader: false,
+                    error: false,
                 }));
             }
         } catch (Err) {
