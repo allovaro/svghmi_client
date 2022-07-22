@@ -1,0 +1,14 @@
+.app-info {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #3d5a80;
+    border-radius: 4px;
+    box-shadow: 15px 15px 30px rgba(0,0,0, .15);
+    text-align: center;
+    color: #fff;
+}
+
+.infoBlock {
+    text-indent: 40px;
+    font-weight:600;
+}
