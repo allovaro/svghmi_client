@@ -6,7 +6,7 @@ import './dropfiles.css';
 function Dropfiles(props) {
     const { id, files, setFiles, onUploaded } = props;
     const updateFiles = (incommingFiles) => {
-        console.log(incommingFiles)
+        // console.log(incommingFiles)
         setFiles(incommingFiles);
     };
 
@@ -15,11 +15,11 @@ function Dropfiles(props) {
     };
 
     const handleClean = (files) => {
-        console.log("list cleaned", files);
+        // console.log("list cleaned", files);
     };
 
     const uploadFinished = (files) => {
-        console.log(`Uploaded ${files.length} files`);
+        // console.log(`Uploaded ${files.length} files`);
         onUploaded();
     }
 
