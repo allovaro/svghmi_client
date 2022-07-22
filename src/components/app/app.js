@@ -29,6 +29,7 @@ class App extends Component {
             const data = await res.json();
             await fetch(`${API_SERVER}user_from`, {
                 method: 'POST',
+                mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json'
                 },
