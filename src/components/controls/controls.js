@@ -7,9 +7,14 @@ const Controls = (props) => {
     const { downloadId, optimized, onOptimize, uploaded, loader } = props;
  
     const onDownload = async () => {
-        const res = await fetch(`${API_SERVER}download/${downloadId}`);
-        const blob = await res.blob();
-        downloadjs(blob, 'svghmi.zip');
+        try {
+            const res = await fetch(`${API_SERVER}download/${downloadId}`);
+            const blob = await res.blob();
+            downloadjs(blob, 'svghmi.zip');
+        } catch (Err) {
+            console.error('Something went wrong with downloading...');
+        }
+        
     }
 
     const onClick = async () => {

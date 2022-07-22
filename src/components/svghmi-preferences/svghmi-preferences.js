@@ -1,10 +1,11 @@
 import CheckBoxItem from "../checkBoxItem/checkBoxItem";
 import Controls from "../controls/controls";
+import Error from "../error/error";
 
 import './svghmi-preferences.css';
 
 const SvghmiPreferences = (props) => {
-    const { config, onConfigChanged } = props;
+    const { config, onConfigChanged, error } = props;
 
     return (
         <div className='svghmi-preferences'>
@@ -14,6 +15,7 @@ const SvghmiPreferences = (props) => {
                 loader={props.loader}
                 uploaded={props.uploaded}
                 optimized={props.optimized} />
+            {error ? <Error text="=( Sorry, something went wrong, try another svg files..."/>: null}
             <div className="wrap-collabsible">
                 <input id="collapsible1" className="toggle" type="checkbox" />
                 <label htmlFor="collapsible1" className="lbl-toggle">Options</label>
@@ -85,7 +87,7 @@ const SvghmiPreferences = (props) => {
                         <p className="paragraphDesc">Linear and Radial gradients can be without some attributes.
                             For example <i>"stop-color" and "stop-opacity"</i>,
                             for LinearGradient can be <i>"x1", "x2", "y1", "y2"</i>, for RadialGradient can be <i>"cx", "cy"</i>.
-                            When this option is activated program adds default value for "stop-color" it will be black color,
+                            When this option is activated program adds default value for "stop-color" it will be black color, 
                             for "stop-opacity" is null.
                         </p>
                         <h4>Remove gradientTransform</h4>

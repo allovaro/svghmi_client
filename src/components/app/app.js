@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import AppInfo from '../app-info/app-info';
 import Dropfiles from '../dropfiles/dropfiles';
 import SvghmiPreferences from '../svghmi-preferences/svghmi-preferences';
+import Error from '../error/error';
 import { API_SERVER, CONFIG_DEFAULT } from './../../config/constant';
 
 import './app.css';
@@ -20,6 +21,7 @@ class App extends Component {
             optimized: false,
             uploaded: false,
             loader: false,
+            error: false,
         }
     }
 
@@ -38,7 +40,6 @@ class App extends Component {
         } catch (Err) {
             console.log('Fetch error...');
         }
-
     }
 
     setFiles = (files) => {
@@ -57,15 +58,28 @@ class App extends Component {
             },
             body: JSON.stringify(this.state.optimizeConf),
         };
-        const response = await fetch(`${API_SERVER}optimize/${this.state.clientId}`, options);
-        await response.json()
-        if (response.status) {
+
+        try {
+            const response = await fetch(`${API_SERVER}optimize/${this.state.clientId}`, options);
+            await response.json()
+            if (response.status) {
+                this.setState((prevState) => ({
+                    optimized: true,
+                    uploaded: false,
+                    downloadId: prevState.clientId,
+                    clientId: uuidv4().split('-').join(''),
+                    loader: false,
+                }));
+            }
+        } catch (Err) {
+            console.error('Something went wrong...');
             this.setState((prevState) => ({
-                optimized: true,
+                optimized: false,
                 uploaded: false,
                 downloadId: prevState.clientId,
                 clientId: uuidv4().split('-').join(''),
                 loader: false,
+                error: true,
             }));
         }
     }
@@ -105,8 +119,9 @@ class App extends Component {
                     setFiles={this.setFiles}
                     onUploaded={() => (this.setState({ optimized: false, uploaded: true }))}
                     id={this.state.clientId} />
-
+                
                 <SvghmiPreferences
+                    error={this.state.error}
                     onOptimize={this.optimizeFiles}
                     downloadId={this.state.downloadId}
                     loader={this.state.loader}
@@ -114,7 +129,6 @@ class App extends Component {
                     optimized={this.state.optimized}
                     config={this.state.optimizeConf}
                     onConfigChanged={this.onConfigChanged} />
-
             </div>
         );
     }
