@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import AppInfo from '../app-info/app-info';
 import Dropfiles from '../dropfiles/dropfiles';
 import SvghmiPreferences from '../svghmi-preferences/svghmi-preferences';
-import Error from '../error/error';
 import { API_SERVER, CONFIG_DEFAULT } from './../../config/constant';
 
 import './app.css';

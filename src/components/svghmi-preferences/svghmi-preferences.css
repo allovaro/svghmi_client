@@ -7,6 +7,15 @@
     color: #fff;
 }
 
+.option-text {
+    border: 1px solid #0069ff;
+    margin: 2em;
+  }
+
+.option-header {
+    margin: 0 0 0.8em 0;
+  }
+
 .paragraphDesc {
     text-indent: 40px;
     font-weight:600;

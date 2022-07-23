@@ -8,11 +8,22 @@ const CheckBoxItem = (props) => {
     }
 
     return (
-        <div className="item">
-            <div className="checkbox-rect">
-                <input type="checkbox" id={id} name="check" checked={checked} onChange={onCheck} />
-                <label htmlFor={id}>{label}</label>
-            </div>
+        <div className="cbx-item">
+            <input
+                className="inp-cbx"
+                id={id}
+                checked={checked}
+                onChange={onCheck}
+                type="checkbox"
+                style={{display: "none"}} />
+            <label className="cbx"for={id}>
+                <span>
+                    <svg width="12px" height="10px" viewbox="0 0 12 10">
+                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                    </svg>
+                </span>
+                <span>{label}</span>
+            </label>
         </div>
     )
 }
