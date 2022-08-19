@@ -17,7 +17,8 @@ export const CONFIG_DEFAULT = {
         {
             name: 'removeAttrs',
             params: {
-                attrs: '(sketch|stroke-dasharray)',
+                // attrs: '(sketch|stroke-dasharray)',
+                attrs: '(sketch)',
             },
         },
     ],
@@ -27,7 +28,8 @@ export const CONFIG_DEFAULT = {
         addDefaults: true,
         delGradientTransform: true,
         connectBgColor: true,
-        bgColorId: 'bgColor',
+        polyToPath: true,
+        bgColorId: ['bgColor', 'anColor', 'alColor', 'aloColor'],
         addFlipInterface: true,
     }
 }
