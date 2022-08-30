@@ -1,4 +1,5 @@
 import CheckBoxItem from "../checkBoxItem/checkBoxItem";
+import ColorControl from "../colorControl/colorControl";
 import Controls from "../controls/controls";
 import Error from "../error/error";
 
@@ -6,6 +7,12 @@ import './svghmi-preferences.css';
 
 const SvghmiPreferences = (props) => {
     const { config, onConfigChanged, error } = props;
+
+    const ShowColorControl = config.optimization.connectBgColor ? 
+        <ColorControl
+            labels={config.optimization.bgColorId}
+            onChange={onConfigChanged} />
+        : null;
 
     return (
         <div className='svghmi-preferences'>
@@ -53,9 +60,15 @@ const SvghmiPreferences = (props) => {
                             onClick={onConfigChanged} />
                         <CheckBoxItem
                             id="convertShapeToPath"
-                            label="Convert Shapes to Path"
+                            label="Shape to Path"
                             section="svgo"
                             checked={config.svgo.includes("convertShapeToPath")}
+                            onClick={onConfigChanged} />
+                        <CheckBoxItem
+                            id="polyToPath"
+                            label="Poly to Path"
+                            section="optimization"
+                            checked={config.optimization.polyToPath}
                             onClick={onConfigChanged} />
                         <CheckBoxItem
                             id="convertColors"
@@ -64,17 +77,18 @@ const SvghmiPreferences = (props) => {
                             checked={config.svgo.includes("convertColors")}
                             onClick={onConfigChanged} />
                         <CheckBoxItem
-                            id="connectBgColor"
-                            label="Attach bgColorXX to BasicColor interface property"
-                            section="optimization"
-                            checked={config.optimization.connectBgColor}
-                            onClick={onConfigChanged} />
-                        <CheckBoxItem
                             id="removeDimensions"
                             label="Remove Width/Height and add viewBox if it's missing "
                             section="svgo"
                             checked={config.svgo.includes("removeDimensions")}
                             onClick={onConfigChanged} />
+                        <CheckBoxItem
+                            id="connectBgColor"
+                            label="Attach bgColorXX to BasicColor interface property"
+                            section="optimization"
+                            checked={config.optimization.connectBgColor}
+                            onClick={onConfigChanged} />
+                        {ShowColorControl}
                     </div>
                 </div>
             </div>

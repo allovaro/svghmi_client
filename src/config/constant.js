@@ -29,7 +29,7 @@ export const CONFIG_DEFAULT = {
         delGradientTransform: true,
         connectBgColor: true,
         polyToPath: true,
-        bgColorId: ['bgColor', 'anColor', 'alColor', 'aloColor'],
+        bgColorId: ['bgColor'],
         addFlipInterface: true,
     }
 }
