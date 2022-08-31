@@ -17,7 +17,6 @@ export const CONFIG_DEFAULT = {
         {
             name: 'removeAttrs',
             params: {
-                // attrs: '(sketch|stroke-dasharray)',
                 attrs: '(sketch)',
             },
         },

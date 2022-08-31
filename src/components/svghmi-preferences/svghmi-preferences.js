@@ -12,7 +12,7 @@ const SvghmiPreferences = (props) => {
         <InputFieldItem
             section="optimization"
             id="bgColorId"
-            header="Element's IDs"
+            header="Element's IDs (comma separated)"
             labels={config.optimization.bgColorId}
             onChange={onConfigChanged} />
         : null;
@@ -103,7 +103,7 @@ const SvghmiPreferences = (props) => {
                         <InputFieldItem
                             section="svgo"
                             id="removeAttrs"
-                            header="Remove user defined Ids"
+                            header="Remove user defined Ids (comma separated)"
                             labels={removeIds}
                             onChange={onConfigChanged} />
                     </div>
