@@ -1,5 +1,5 @@
 import CheckBoxItem from "../checkBoxItem/checkBoxItem";
-import ColorControl from "../colorControl/colorControl";
+import InputFieldItem from "../inputFieldItem/inputFieldItem";
 import Controls from "../controls/controls";
 import Error from "../error/error";
 
@@ -9,10 +9,21 @@ const SvghmiPreferences = (props) => {
     const { config, onConfigChanged, error } = props;
 
     const ShowColorControl = config.optimization.connectBgColor ? 
-        <ColorControl
+        <InputFieldItem
+            section="optimization"
+            id="bgColorId"
+            header="Element's IDs"
             labels={config.optimization.bgColorId}
             onChange={onConfigChanged} />
         : null;
+    
+    let removeIds = '';
+    config.svgo.forEach(elem => {
+        if (elem.name === 'removeAttrs') {
+            const str = elem.params.attrs;
+            removeIds = str.slice(1, str.length - 1);
+        }
+    });
 
     return (
         <div className='svghmi-preferences'>
@@ -89,6 +100,12 @@ const SvghmiPreferences = (props) => {
                             checked={config.optimization.connectBgColor}
                             onClick={onConfigChanged} />
                         {ShowColorControl}
+                        <InputFieldItem
+                            section="svgo"
+                            id="removeAttrs"
+                            header="Remove user defined Ids"
+                            labels={removeIds}
+                            onChange={onConfigChanged} />
                     </div>
                 </div>
             </div>
@@ -109,43 +126,50 @@ const SvghmiPreferences = (props) => {
                         <div className="option-text">
                             <h4 className="option-header">Remove gradientTransform</h4>
                             <p className="paragraphDesc">Some Vector Graphics Editors can add <i>gradientTransform</i> attributes to Gradients,
-                                and <i>WinCC Unified</i> don't understand it and displays it as black.
+                                and <i>WinCC Unified</i> don't "understand" it and displays it as black.
                                 This option try to recalculate transformed coordinates to x and y. Sometimes it can break gradient.</p>
                         </div>
                         <div className="option-text">
                             <h4 className="option-header">Delete <i>href</i> and <i>xlink:href</i> in gradients</h4>
-                            <p className="paragraphDesc">description</p>
+                            <p className="paragraphDesc">Some gradients can link to other gradients. And WinCC doesn't "understand" such gradients. and displays it as black. Thus these attributes must be removed to display correctly.</p>
                         </div>
                         <div className="option-text">
-                            <h4>Move Gradients to "defs"</h4>
-                            <p className="paragraphDesc">description</p>
-                        </div>
-
-                        <div className="option-text">
-                            <h4>Convert all Shapes to Path</h4>
-                            <p className="paragraphDesc">description</p>
-                        </div>
-                        <div className="option-text">
-                            <h4>Add Flip interface</h4>
-                        </div>
-
-
-                        <div className="option-text">
-                            <h4>Convert colors from rgb() to #rrggbb, from #rrggbb to #rgb</h4>
-                            <p className="paragraphDesc">description</p>
+                            <h4 className="option-header">Move Gradients to "defs"</h4>
+                            <p className="paragraphDesc">Moving all gradients in document to <i>defs</i> element.</p>
                         </div>
 
                         <div className="option-text">
-                            <h4>Attach bgColor to BasicColor</h4>
-                            <p className="paragraphDesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                            <h4 className="option-header">Add Flip interface</h4>
+                            <p className="paragraphDesc">Optionally you can add a flip property to mirror the widget horizontally.</p>
+                        </div>
+
+                        <div className="option-text">
+                            <h4 className="option-header">Convert Shape to Path</h4>
+                            <p className="paragraphDesc">Optionally you can convert all shapes like (rectangle, circle ellipse, etc.) to path element.</p>
+                        </div>
+
+                        <div className="option-text">
+                            <h4 className="option-header">Convert Poly to Path</h4>
+                            <p className="paragraphDesc">WinCC doesn't "understand" polyline and polygon, so by default it will be converted to path element.</p>
+                        </div>
+
+                        <div className="option-text">
+                            <h4 className="option-header">Convert colors from rgb() to #rrggbb, from #rrggbb to #rgb</h4>
+                            <p className="paragraphDesc">Optionally you can unify colors to one type.</p>
+                        </div>
+
+                        <div className="option-text">
+                            <h4 className="option-header">Remove Width and Height</h4>
+                            <p className="paragraphDesc">Remove from svg attributes width and height for better display in WinCC.</p>
+                        </div>
+
+                        <div className="option-text">
+                            <h4 className="option-header">Attach bgColor to BasicColor</h4>
+                            <p className="paragraphDesc">You can specify the ids of the elements you want to change the color from the WinCC poperties. By default, the application searches for all IDs with the name <i>bgColor</i> and binds the fill attribute of svg element to the property with name BasicColor. All ids that have <i>bgColor</i> in the name will be bind to BasicColor. Separated by commas, you can specify several ID names to which you want to assign color change properties. For example, the string <i>bgColor,AlternateColor,AnotherColor</i> will result in the creation of three property fields <i>BasicColor</i>, <i>AlternateColor1</i>, <i>AlternateColor2</i>. If the elements with the specified IDs are not found in the svg document, then the property field associated with it will not be added.</p>
                         </div>
                         <div className="option-text">
-                            <h4>delete user defined attributes</h4>
-                            <p className="paragraphDesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                        </div>
-                        <div className="option-text">
-                            <h4>remove custom attributes like "stroke-dasharray"</h4>
-                            <p className="paragraphDesc">description</p>
+                            <h4 className="option-header">Delete user defined attributes</h4>
+                            <p className="paragraphDesc">Optionaly you can delete from svg attributes what you want. Because some vector editors can add there custom attributes. And WinCC will throw the error if find it.</p>
                         </div>
 
                     </div>

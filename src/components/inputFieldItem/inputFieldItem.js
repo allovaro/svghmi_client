@@ -1,20 +1,20 @@
-import './colorControl.css';
+import './inputFieldItem.css';
 
-const ColorControl = (props) => {
-    const { labels, onChange } = props;
+const InputFieldItem = (props) => {
+    const { labels, onChange, id, section, header } = props;
 
     const onIdChange = (e) => {
         const value = e.target.value.replace(' ', '').split(',');
-        onChange('optimization', 'bgColorId', value);
+        onChange(section, id, value);
     }
 
     return (
         <label htmlFor="inp" className="inp">
             <input type="text" id="inp" value={labels} onChange={onIdChange} />
-                <span className="label">Element's IDs</span>
+                <span className="label">{header}</span>
                 <span className="focus-bg"></span>
         </label>
     )
 }
 
-export default ColorControl;
+export default InputFieldItem;

@@ -50,12 +50,19 @@ class App extends Component {
             files: [],
             loader: true,
         });
+        // remove empty bgColor ids
+        const ids = this.state.optimizeConf.optimization.bgColorId.filter((elem) => elem !== '');
+        const { optimizeConf } = this.state;
+        optimizeConf.optimization.bgColorId = ids;
+        if (ids.length === 1 && ids[0] === '') {
+            optimizeConf.optimization.connectBgColor = false;
+        }
         const options = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(this.state.optimizeConf),
+            body: JSON.stringify(optimizeConf),
         };
 
         try {
@@ -93,6 +100,25 @@ class App extends Component {
             });
         }
         if (section === 'svgo') {
+            if (id === 'removeAttrs') {
+                this.setState((prev) => {
+                    let newConf = { ...prev.optimizeConf };
+                    newConf.svgo = newConf.svgo.map((elem) => {
+                        if (elem.name === 'removeAttrs') {
+                            return {
+                                name: 'removeAttrs',
+                                params: {
+                                    attrs: `(${value})`,
+                                },
+                            };
+                        }
+                        return elem;
+                    })
+                    newConf.svgo = newConf.svgo.filter(elem => elem !== id);
+                    return { optimizeConf: newConf };
+                });
+                return;
+            }
             this.setState((prev) => {
                 let newConf = { ...prev.optimizeConf };
                 if (newConf.svgo.includes(id)) {
