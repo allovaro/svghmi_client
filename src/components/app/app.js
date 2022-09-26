@@ -17,7 +17,11 @@ class App extends Component {
             <div className="app">
                 <Routes>
                     <Route exact path="/" element={<Main />} />
-                    <Route exact path="/login" element={<LoginComponent />} />
+                    <Route exact path="/login" element={<LoginComponent mode="login" onSubmit={
+                        function() {
+                            console.log('submit');
+                        }
+                    } />} />
                 </Routes>
             </div>
         );
