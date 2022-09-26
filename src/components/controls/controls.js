@@ -1,4 +1,4 @@
-import downloadjs from 'downloadjs';
+// import downloadjs from 'downloadjs';
 import { API_SERVER } from "../../config/constant";
 
 import './controls.css';
@@ -10,7 +10,12 @@ const Controls = (props) => {
         try {
             const res = await fetch(`${API_SERVER}download/${downloadId}`);
             const blob = await res.blob();
-            downloadjs(blob, 'svghmi.zip');
+            const element = document.createElement("a");
+            element.href = URL.createObjectURL(blob);
+            element.download = 'svghmi.zip'
+            document.body.appendChild(element); // Required for this to work in FireFox
+            element.click(); // simulate link click
+            // downloadjs(blob, 'svghmi.zip');
         } catch (Err) {
             console.error('Something went wrong with downloading...');
         }
