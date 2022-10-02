@@ -6,6 +6,8 @@ import SvghmiPreferences from '../svghmi-preferences/svghmi-preferences';
 
 import { API_SERVER, CONFIG_DEFAULT } from './../../config/constant';
 
+import '../app/baner.css';
+
 
 class Main extends Component {
     constructor(props) {
@@ -26,7 +28,7 @@ class Main extends Component {
         try {
             const res = await fetch('https://geolocation-db.com/json/');
             const data = await res.json();
-            await fetch(`${API_SERVER}user_from`, {
+            await fetch(`${API_SERVER}/user_from`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -64,7 +66,7 @@ class Main extends Component {
         };
 
         try {
-            const response = await fetch(`${API_SERVER}optimize/${this.state.clientId}`, options);
+            const response = await fetch(`${API_SERVER}/optimize/${this.state.clientId}`, options);
             await response.json()
             if (response.status) {
                 this.setState((prevState) => ({
@@ -131,7 +133,7 @@ class Main extends Component {
 
     render() {
         return (
-            <div className="app">
+            <>
                 <header className="color-full clear-fix">
                     <div className="text_color_full block3">
                         SVG to <span className='svghmi'>SVGHMI</span>
@@ -152,7 +154,7 @@ class Main extends Component {
                     optimized={this.state.optimized}
                     config={this.state.optimizeConf}
                     onConfigChanged={this.onConfigChanged} />
-            </div>
+            </>
         );
     }
 }

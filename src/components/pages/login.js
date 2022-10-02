@@ -1,14 +1,9 @@
-import LoginComponent from '../LoginComponent/loginComponent';
+import LoginComponent from '../loginComponent/loginComponent';
 
-const Login = () => {
+const Login = (props) => {
     return (
         <LoginComponent
-            mode={'login'}
-            onSubmit={
-                function() {
-                    console.log('submit');
-                }
-            }
+            mode={props.mode}
         />
     )
 }

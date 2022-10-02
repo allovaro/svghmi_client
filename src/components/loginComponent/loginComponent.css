@@ -1,12 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
 
-/* body {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
-    color: #fff;
-    margin: 0 !important;
-} */
-
 .login-form-app {
     position: absolute;
     top: 0;
@@ -14,9 +7,6 @@
     right: 0;
     height: 100%;
     overflow-y: scroll;
-    background-image: url("https://unsplash.it/1366/768?image=568");
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .form-block-wrapper {
@@ -73,7 +63,7 @@
 }
 
 .form-block__input-wrapper {
-    height: 126px;
+    height: 135px;
     position: relative;
     margin-bottom: 2px;
     -moz-transition: all 0.25s cubic-bezier(0.36, 1, 0.62, 0.98) 0.3s;
@@ -82,7 +72,7 @@
 }
 
 .form-block--is-signup .form-block__input-wrapper {
-    height: 252px;
+    height: 272px;
     -moz-transition: all 0.5s cubic-bezier(0.36, 1, 0.62, 0.98) 0.2s;
     -webkit-transition: all 0.5s cubic-bezier(0.36, 1, 0.62, 0.98) 0.2s;
     transition: all 0.5s cubic-bezier(0.36, 1, 0.62, 0.98) 0.2s;
@@ -113,6 +103,10 @@
     outline: none;
     border: 1px solid #fff;
     background: transparent;
+}
+
+.form-group__input.error__input {
+    border: 1px solid rgb(233, 21, 21);
 }
 
 .form-block--is-signup .form-group__input {
@@ -186,7 +180,13 @@
     color: #fff;
 }
 
-.button:hover {
+.button-login-disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+.buttonLogin:hover {
     -webkit-box-shadow: 0px 0px 18px 15px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 0px 18px 15px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 0px 18px 15px rgba(0, 0, 0, 0.15);
