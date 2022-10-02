@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import Navbar from '../navBar/navBar';
 import AppInfo from '../app-info/app-info';
 import Dropfiles from '../dropfiles/dropfiles';
 import SvghmiPreferences from '../svghmi-preferences/svghmi-preferences';
@@ -134,6 +135,7 @@ class Main extends Component {
     render() {
         return (
             <>
+                <Navbar />
                 <header className="color-full clear-fix">
                     <div className="text_color_full block3">
                         SVG to <span className='svghmi'>SVGHMI</span>

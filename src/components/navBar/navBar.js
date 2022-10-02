@@ -1,5 +1,6 @@
 import { NavLink as Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import { logoutAction } from "../../store/actions/auth";
 
 import './navBar.css'
@@ -9,6 +10,7 @@ const Navbar = () => {
     const { isLoggedIn } = useSelector(state => state.auth);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const SignUp  = () => (
         <nav className="nav_btn">
@@ -18,7 +20,8 @@ const Navbar = () => {
     const LogOut = () => (
         <button className="nav_btn nav_btn_link" type="button"
             onClick={()=> {
-                dispatch(logoutAction())
+                dispatch(logoutAction());
+                navigate('/');
             }}>
                 Log Out
         </button>
@@ -37,9 +40,6 @@ const Navbar = () => {
                     {isLoggedIn ? name : 'Log In'}
                 </Link>
                 {isLoggedIn ? <LogOut /> : <SignUp />}
-                {/* <nav className="nav_btn">
-                    <Link className="nav_btn_link" to="/signup">Sign Up</Link>
-                </nav> */}
             </div>
            </nav> 
         </>

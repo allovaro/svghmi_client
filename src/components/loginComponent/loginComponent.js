@@ -90,7 +90,7 @@ function LoginForm(props) {
     let submitClass = 'buttonLogin button-login--primary full-width';
     let repeatClass = 'form-group__input';
     if (props.mode === 'signup' && !valid) submitClass += ' button-login-disabled';
-    if (login.createpassword !== login.repeatpassword) repeatClass += ' error__input';
+    if (!isPassIdentical()) repeatClass += ' error__input';
 
     return (
         <form onSubmit={onSubmit}>
