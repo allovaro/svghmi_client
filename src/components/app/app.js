@@ -4,6 +4,7 @@ import Login from '../pages/login';
 import ProfilePage from '../pages/profile';
 import PaymentResult from '../paymentResult/paymentResult';
 import NotFoundPage from '../notFoundPage/notFoundPage';
+import PricingTable from '../pricingTable/pricingTable';
 
 import './app.css';
 
@@ -18,6 +19,7 @@ function App() {
                 <Route exact path="/profile" element={<ProfilePage />} />
                 <Route exact path="/success_purchase" element={<PaymentResult type="success" />} />
                 <Route exact path="/failed_purchase" element={<PaymentResult type="fail" />} />
+                <Route exact path="/test" element={<PricingTable />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </div>

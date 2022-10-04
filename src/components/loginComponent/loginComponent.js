@@ -21,8 +21,8 @@ function LoginForm(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [message, setMessage] = useState('');
     const [error, setError] = useState(null);
+    const [loginError, setLoginError] = useState(null);
   
     const isValidEmail = (email) => {
       return /\S+@\S+\.\S+/.test(email);
@@ -48,10 +48,9 @@ function LoginForm(props) {
         if (id === 'email_signup') {
             if (!isValidEmail(value)) {
                 setError('Email is invalid');
-              } else {
+            } else {
                 setError(null);
-              }
-              setMessage(value);
+            }
         }
         setLogin({...login, 
             [id]: value,
@@ -74,15 +73,20 @@ function LoginForm(props) {
                 navigate('/');
             })
             .catch(() => {
-                console.error('something goes wrong...')
+                console.error('something goes wrong...');
             });
         } else {
             dispatch(loginAction(login.email, login.password))
             .then(() => {
+                setLoginError(false);
                 navigate('/');
             })
             .catch(() => {
-                console.error('something goes wrong...')
+                setLoginError(true);
+                setLogin({...login, 
+                    email: '',
+                    password: '',
+                });
             });
         }
     }
@@ -107,6 +111,7 @@ function LoginForm(props) {
                 </div>
             </div>
             <button className={submitClass} type="submit">{props.mode === 'login' ? 'Log In' : 'Sign Up'}</button>
+            {loginError ? <h5 className="login-message">incorrect login or password</h5> : null }
         </form>
     )
 }
