@@ -44,7 +44,7 @@ function Dropfiles(props) {
                 value={files}
                 maxFiles={100}
                 maxFileSize={1024000}
-                url={`${API_SERVER}/upload-files/${id}`}
+                url={`${API_SERVER}/convertor/upload-files/${id}`}
                 onUploadFinish={uploadFinished} >
                 {files.map((file) => (
                     <FileItem onDelete={onDelete} {...file} preview />

@@ -5,6 +5,7 @@ import ProfilePage from '../pages/profile';
 import PaymentResult from '../paymentResult/paymentResult';
 import NotFoundPage from '../notFoundPage/notFoundPage';
 import PricingTable from '../pricingTable/pricingTable';
+import CommonMessage from '../commonMessage/commonMessage';
 
 import './app.css';
 
@@ -20,6 +21,7 @@ function App() {
                 <Route exact path="/success_purchase" element={<PaymentResult type="success" />} />
                 <Route exact path="/failed_purchase" element={<PaymentResult type="fail" />} />
                 <Route exact path="/test" element={<PricingTable />} />
+                <Route exact path="/signup_confirm/:email" element={<CommonMessage header="Thanks for signing up!" message="Please confirm your email. We sent you a message with link"/>} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </div>

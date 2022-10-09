@@ -29,7 +29,7 @@ class Main extends Component {
         try {
             const res = await fetch('https://geolocation-db.com/json/');
             const data = await res.json();
-            await fetch(`${API_SERVER}/user_from`, {
+            await fetch(`${API_SERVER}/users/user_from`, {
                 method: 'POST',
                 mode: 'cors',
                 headers: {
@@ -67,7 +67,7 @@ class Main extends Component {
         };
 
         try {
-            const response = await fetch(`${API_SERVER}/optimize/${this.state.clientId}`, options);
+            const response = await fetch(`${API_SERVER}/convertor/optimize/${this.state.clientId}`, options);
             await response.json()
             if (response.status) {
                 this.setState((prevState) => ({

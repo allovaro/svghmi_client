@@ -25,12 +25,8 @@ export const registerAction = (username, email, password) => (dispatch) => {
       return Promise.resolve();
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+      const message = (error.cause && error.cause.msg) ?
+      error.cause.msg : '';
 
       dispatch({
         type: REGISTER_FAIL,
@@ -57,17 +53,11 @@ export const loginAction = (username, password) => (dispatch) => {
           token: data.access_token,
         },
       });
-
       return Promise.resolve();
     },
     (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-
+      const message = (error.cause && error.cause.msg) ?
+      error.cause.msg : '';
       dispatch({
         type: LOGIN_FAIL,
       });

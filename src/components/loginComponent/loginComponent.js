@@ -1,29 +1,26 @@
 import { Component, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { registerAction, loginAction } from '../../store/actions/auth';
 import './loginComponent.css';
 
 const mode = 'login';
 
 function LoginForm(props) {
-    const [ login, setLogin ] = useState(
-        {
-            email_signup: '',
-            password: '',
-            fullname: '',
-            email: '',
-            createpassword: '',
-            repeatpassword: '',
-        }
-    );
-    const [ valid, setValid ] = useState(false);
+    const { message } = useSelector(state => state.message);
+    const [ login, setLogin ] = useState({
+        email_signup: '',
+        password: '',
+        fullname: '',
+        email: '',
+        createpassword: '',
+        repeatpassword: '',
+    });
+    
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    const [error, setError] = useState(null);
-    const [loginError, setLoginError] = useState(null);
   
+    // Validation functions
     const isValidEmail = (email) => {
       return /\S+@\S+\.\S+/.test(email);
     }
@@ -32,45 +29,39 @@ function LoginForm(props) {
         return login.createpassword === login.repeatpassword;
     }
 
-    const isFormValid = () => {
-        if (isValidEmail(login.email_signup) && 
-            login.fullname &&
-            isPassIdentical()) {
-                setValid(true);
-                return true;
+    const isLoginFormValid = () => {
+        if (isValidEmail(login.email) && login.password && login.password !== '') {
+            return true;
         }
-        setValid(false);
         return false;
     }
 
+    const isSignupFormValid = () => {
+        if (isValidEmail(login.email_signup) && 
+        login.fullname &&
+        isPassIdentical()) {
+            return true;
+        }
+        return false;
+    }
+
+    // Save credentials in state
     const onHandleChange = (e) => {
         const { id, value } = e.target;
-        if (id === 'email_signup') {
-            if (!isValidEmail(value)) {
-                setError('Email is invalid');
-            } else {
-                setError(null);
-            }
-        }
         setLogin({...login, 
             [id]: value,
         })
-        if (isFormValid()) {
-            setValid(true);
-        } else {
-            setValid(false);
-        }
     }
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if (props.mode === 'signup' && isFormValid()) {
+        if (props.mode === 'signup' && isSignupFormValid()) {
             dispatch(registerAction(
                 login.fullname,
                 login.email_signup,
                 login.createpassword))
             .then(() => {
-                navigate('/');
+                navigate(`/signup_confirm/${login.email_signup}`);
             })
             .catch(() => {
                 console.error('something goes wrong...');
@@ -78,11 +69,9 @@ function LoginForm(props) {
         } else {
             dispatch(loginAction(login.email, login.password))
             .then(() => {
-                setLoginError(false);
                 navigate('/');
             })
             .catch(() => {
-                setLoginError(true);
                 setLogin({...login, 
                     email: '',
                     password: '',
@@ -90,28 +79,34 @@ function LoginForm(props) {
             });
         }
     }
-    const emailClass = error ? 'form-group__input error__input' : 'form-group__input';
+    const emailSignUpClass = isValidEmail(login.email_signup) ? 'form-group__input' : 'form-group__input error__input';
+    const emailLoginClass = isValidEmail(login.email) ? 'form-group__input' : 'form-group__input error__input';
     let submitClass = 'buttonLogin button-login--primary full-width';
-    let repeatClass = 'form-group__input';
-    if (props.mode === 'signup' && !valid) submitClass += ' button-login-disabled';
-    if (!isPassIdentical()) repeatClass += ' error__input';
+    if (props.mode === 'signup' && !isSignupFormValid()) {
+        submitClass += ' button-login-disabled';
+    } else if (props.mode === 'login' && !isLoginFormValid()) {
+        submitClass += ' button-login-disabled';
+    }
+
+    const repeatClass = isPassIdentical() ? 'form-group__input' : 'form-group__input error__input';
+    const errorMessage = message ? <h5 className="login-message">{message}</h5> : null;
 
     return (
         <form onSubmit={onSubmit}>
             <div className="form-block__input-wrapper">
                 <div className="form-group form-group--login">                        
-                    <input className="form-group__input"type="text" id="email" label="email" disabled={props.mode === 'signup'} value={login.email} onChange={onHandleChange} placeholder='email'/>
+                    <input className={emailLoginClass} type="text" id="email" label="email" disabled={props.mode === 'signup'} value={login.email} onChange={onHandleChange} placeholder='email'/>
                     <input className="form-group__input" type="password" id="password" label="password" disabled={props.mode === 'signup'} value={login.password} onChange={onHandleChange} placeholder='password' />
                 </div>
                 <div className="form-group form-group--signup">
                     <input className="form-group__input" type="text" id="fullname" label="full name" disabled={props.mode === 'login'} value={login.fullname} onChange={onHandleChange} placeholder='full name' />
-                    <input className={emailClass} type="email" id="email_signup" label="email" disabled={props.mode === 'login'} value={login.email_signup} onChange={onHandleChange} placeholder='email' />
+                    <input className={emailSignUpClass} type="email" id="email_signup" label="email" disabled={props.mode === 'login'} value={login.email_signup} onChange={onHandleChange} placeholder='email' />
                     <input className="form-group__input" type="password" id="createpassword" label="password" disabled={props.mode === 'login'} value={login.createpassword} onChange={onHandleChange} placeholder='password' />
                     <input className={repeatClass} type="password" id="repeatpassword" label="repeat password" disabled={props.mode === 'login'} value={login.repeatpassword} onChange={onHandleChange} placeholder='repeat password' />
                 </div>
             </div>
             <button className={submitClass} type="submit">{props.mode === 'login' ? 'Log In' : 'Sign Up'}</button>
-            {loginError ? <h5 className="login-message">incorrect login or password</h5> : null }
+            { errorMessage }
         </form>
     )
 }

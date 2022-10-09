@@ -18,7 +18,7 @@ function PricingElement(props) {
 
             <div className="pricing-table-footer">
                 <h2><sup>$</sup>{props.price}</h2>
-                <a href="#">Purchase</a>
+                <a href="https://cryptopay.com">Purchase</a>
             </div>
         </div>
     )
