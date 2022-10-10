@@ -95,14 +95,14 @@ function LoginForm(props) {
         <form onSubmit={onSubmit}>
             <div className="form-block__input-wrapper">
                 <div className="form-group form-group--login">                        
-                    <input className={emailLoginClass} type="text" id="email" label="email" disabled={props.mode === 'signup'} value={login.email} onChange={onHandleChange} placeholder='email'/>
-                    <input className="form-group__input" type="password" id="password" label="password" disabled={props.mode === 'signup'} value={login.password} onChange={onHandleChange} placeholder='password' />
+                    <input className={emailLoginClass} type="text" id="email" label="email" disabled={props.mode !== 'login'} value={login.email} onChange={onHandleChange} placeholder='email'/>
+                    <input className="form-group__input" type="password" id="password" label="password" disabled={props.mode !== 'login'} value={login.password} onChange={onHandleChange} placeholder='password' />
                 </div>
                 <div className="form-group form-group--signup">
-                    <input className="form-group__input" type="text" id="fullname" label="full name" disabled={props.mode === 'login'} value={login.fullname} onChange={onHandleChange} placeholder='full name' />
-                    <input className={emailSignUpClass} type="email" id="email_signup" label="email" disabled={props.mode === 'login'} value={login.email_signup} onChange={onHandleChange} placeholder='email' />
-                    <input className="form-group__input" type="password" id="createpassword" label="password" disabled={props.mode === 'login'} value={login.createpassword} onChange={onHandleChange} placeholder='password' />
-                    <input className={repeatClass} type="password" id="repeatpassword" label="repeat password" disabled={props.mode === 'login'} value={login.repeatpassword} onChange={onHandleChange} placeholder='repeat password' />
+                    <input className="form-group__input" type="text" id="fullname" label="full name" disabled={props.mode !== 'signup'} value={login.fullname} onChange={onHandleChange} placeholder='full name' />
+                    <input className={emailSignUpClass} type="email" id="email_signup" label="email" disabled={props.mode !== 'signup'} value={login.email_signup} onChange={onHandleChange} placeholder='email' />
+                    <input className="form-group__input" type="password" id="createpassword" label="password" disabled={props.mode !== 'signup'} value={login.createpassword} onChange={onHandleChange} placeholder='password' />
+                    <input className={repeatClass} type="password" id="repeatpassword" label="repeat password" disabled={props.mode !== 'signup'} value={login.repeatpassword} onChange={onHandleChange} placeholder='repeat password' />
                 </div>
             </div>
             <button className={submitClass} type="submit">{props.mode === 'login' ? 'Log In' : 'Sign Up'}</button>
