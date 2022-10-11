@@ -14,10 +14,10 @@ function CommonMessage(props) {
                <div className="message_check"><i className="fa fa-check" aria-hidden="true"></i></div>
             </div>
             <div className="message_content">
-                <h5>{params.email}</h5>
-               <h1>{props.header}</h1>
-               <p>{props.message}</p>
-               <Link to="/">Go to Home</Link>
+                {params.email ? <h5>{params.email}</h5> : null}
+                <h1>{props.header}</h1>
+                <p>{props.message}</p>
+                <Link to="/">Go to Home</Link>
             </div>
          </div>
         </MessageTemplate>

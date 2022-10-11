@@ -45,6 +45,7 @@ export const registerAction = (username, email, password) => (dispatch) => {
 export const loginAction = (username, password) => (dispatch) => {
   return login(username, password).then(
     (data) => {
+      console.log(data)
       dispatch({
         type: LOGIN_SUCCESS,
         payload: {
