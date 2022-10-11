@@ -26,7 +26,7 @@ function App() {
                 <Route exact path="/forgot_password" element={<ForgotPassword />} />
                 <Route exact path="/reset_password/:token/:id" element={<ResetPasswordForm />} />
                 <Route exact path="/reset_password1" element={<ResetPasswordForm />} />
-                <Route exact path="/signup_confirm/:email" element={<CommonMessage header="Thanks for signing up!" 
+                <Route exact path="/signup_confirm/:id/:email" element={<CommonMessage header="Thanks for signing up!" 
                     message="Please confirm your email. We sent you a message with link"/>} />
                 <Route exact path="/reset_email_sent/:email" element={<CommonMessage header="We sent you reset link." 
                     message="Please follow the instraction in email"/>} />
