@@ -52,6 +52,12 @@ const SvghmiPreferences = (props) => {
                             checked={config.optimization.delGradientTransform}
                             onClick={onConfigChanged} />
                         <CheckBoxItem
+                            id="spaceToComma"
+                            label="Change whitespaces to comma delimiter in gradientTransform attributes"
+                            section="optimization"
+                            checked={config.optimization.spaceToComma}
+                            onClick={onConfigChanged} />
+                        <CheckBoxItem
                             id="delRefs"
                             label="Delete href and xlink:href in gradients"
                             section="optimization"
@@ -128,6 +134,11 @@ const SvghmiPreferences = (props) => {
                             <p className="paragraphDesc">Some Vector Graphics Editors can add <i>gradientTransform</i> attributes to Gradients,
                                 and <i>WinCC Unified</i> don't "understand" it and displays it as black.
                                 This option try to recalculate transformed coordinates to x and y. Sometimes it can break gradient.</p>
+                        </div>
+                        <div className="option-text">
+                            <h4 className="option-header">Space to comma delimiter</h4>
+                            <p className="paragraphDesc">This option change space separated parameters in <i>gradientTransform</i> attributes to comma separated
+                                because <i>WinCC Unified</i> don't "understand" it and breaks it.</p>
                         </div>
                         <div className="option-text">
                             <h4 className="option-header">Delete <i>href</i> and <i>xlink:href</i> in gradients</h4>

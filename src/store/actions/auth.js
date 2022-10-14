@@ -11,7 +11,6 @@ import { register, login, logout } from '../../services/auth.service';
 export const registerAction = (username, email, password) => (dispatch) => {
   return register(username, email, password).then(
     (response) => {
-      console.log(response)
       dispatch({
         type: REGISTER_SUCCESS,
       });
@@ -45,13 +44,14 @@ export const registerAction = (username, email, password) => (dispatch) => {
 export const loginAction = (username, password) => (dispatch) => {
   return login(username, password).then(
     (data) => {
-      console.log(data)
       dispatch({
         type: LOGIN_SUCCESS,
         payload: {
-          name: data.user.name,
-          email: data.user.email,
+          name: data.name,
+          email: data.user,
+          level: data.level,
           token: data.access_token,
+          expires_in: data.expires_in,
         },
       });
       return Promise.resolve();

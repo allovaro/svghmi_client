@@ -14,6 +14,7 @@ export const CONFIG_DEFAULT = {
         'sortDefsChildren',
         'sortAttrs',
         'moveGroupAttrsToElems',
+        'convertTransform',
         {
             name: 'removeAttrs',
             params: {
@@ -25,7 +26,7 @@ export const CONFIG_DEFAULT = {
         delRefs: true,
         moveGradients: true,
         addDefaults: true,
-        delGradientTransform: true,
+        spaceToComma: true,
         connectBgColor: true,
         polyToPath: true,
         bgColorId: ['bgColor'],

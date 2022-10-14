@@ -1,6 +1,13 @@
+import Navbar from '../navBar/navBar';
+import ProfileComponent from '../profileComponent/profileComponent';
+
 function ProfilePage() {
+    
     return (
-        <h1>Hello world!!!</h1>
+        <>
+            <Navbar />
+            <ProfileComponent />
+        </>
     )
 }
 

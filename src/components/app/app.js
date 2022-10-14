@@ -8,6 +8,7 @@ import PricingTable from '../pricingTable/pricingTable';
 import CommonMessage from '../commonMessage/commonMessage';
 import ForgotPassword from '../forgotPassword/forgotPassword';
 import ResetPasswordForm from '../resetPasswordForm/resetPasswordForm';
+import ConfirmationPage from '../pages/confirmationPage';
 
 import './app.css';
 
@@ -26,8 +27,9 @@ function App() {
                 <Route exact path="/forgot_password" element={<ForgotPassword />} />
                 <Route exact path="/reset_password/:token/:id" element={<ResetPasswordForm />} />
                 <Route exact path="/reset_password1" element={<ResetPasswordForm />} />
-                <Route exact path="/signup_confirm/:id/:email" element={<CommonMessage header="Thanks for signing up!" 
-                    message="Please confirm your email. We sent you a message with link"/>} />
+                <Route exact path="/email_sent" element={<CommonMessage header="We sent you confirmation email." 
+                    message="Please follow the instraction in email"/>} />
+                <Route exact path="/signup_confirm/:email/:id" element={<ConfirmationPage />} />
                 <Route exact path="/reset_email_sent/:email" element={<CommonMessage header="We sent you reset link." 
                     message="Please follow the instraction in email"/>} />
                 <Route exact path="/reset_password_successfull" element={<CommonMessage header="You set new password!" 

@@ -1,6 +1,5 @@
-import { NavLink as Link } from "react-router-dom";
+import { NavLink as Link, useParams } from "react-router-dom";
 import MessageTemplate from "../messageTemplate/messageTemplate";
-import { useParams } from 'react-router-dom';
 
 import './commonMessage.css';
 

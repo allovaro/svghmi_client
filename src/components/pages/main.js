@@ -38,7 +38,7 @@ class Main extends Component {
                 body: JSON.stringify(data),
             })
         } catch (Err) {
-            console.log('Fetch error...');
+            console.log(Err)
         }
     }
 

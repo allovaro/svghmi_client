@@ -1,5 +1,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { logoutAction } from "../../store/actions/auth";
+
 import MessageTemplate from "../messageTemplate/messageTemplate";
 import { API_SERVER } from '../../config/constant';
 
@@ -12,6 +15,7 @@ function ResetPasswordForm() {
     const [pass2, setPass2] = useState('');
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     // Save credentials in state
     const onChange1 = (e) => {
@@ -48,6 +52,7 @@ function ResetPasswordForm() {
         e.preventDefault();
         requestSetPassword()
         .then(() => {
+            dispatch(logoutAction());
             navigate(`/reset_password_successfull`);
         })
         .catch((error) => {

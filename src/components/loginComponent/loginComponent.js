@@ -53,6 +53,10 @@ function LoginForm(props) {
         })
     }
 
+    const onForgot = () => {
+        navigate(`/forgot_password`);
+    }
+
     const onSubmit = (e) => {
         e.preventDefault();
         if (props.mode === 'signup' && isSignupFormValid()) {
@@ -61,7 +65,7 @@ function LoginForm(props) {
                 login.email_signup,
                 login.createpassword))
             .then(() => {
-                navigate(`/signup_confirm/${login.email_signup}`);
+                navigate(`/email_sent`);
             })
             .catch(() => {
                 console.error('something goes wrong...');
@@ -94,7 +98,7 @@ function LoginForm(props) {
     return (
         <form onSubmit={onSubmit}>
             <div className="form-block__input-wrapper">
-                <div className="form-group form-group--login">                        
+                <div className="form-group form-group--login">                  
                     <input className={emailLoginClass} type="text" id="email" label="email" disabled={props.mode !== 'login'} value={login.email} onChange={onHandleChange} placeholder='email'/>
                     <input className="form-group__input" type="password" id="password" label="password" disabled={props.mode !== 'login'} value={login.password} onChange={onHandleChange} placeholder='password' />
                 </div>
@@ -107,6 +111,7 @@ function LoginForm(props) {
             </div>
             <button className={submitClass} type="submit">{props.mode === 'login' ? 'Log In' : 'Sign Up'}</button>
             { errorMessage }
+            { props.mode === 'login' ? <button className="button-forgot" onClick={onForgot} >Forgot password?</button> : null }
         </form>
     )
 }
@@ -123,6 +128,7 @@ class LoginComponent extends Component {
         var newMode = this.state.mode === 'login' ? 'signup' : 'login';
         this.setState({ mode: newMode});
     }
+
     render() {
         return (
             <div className={`login-form-app login-form-app--is-${mode}`}>
