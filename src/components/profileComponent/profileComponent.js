@@ -1,11 +1,18 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+
+import { changeNameAction } from '../../store/actions/auth';
+
+import PricingTable from '../pricingTable/pricingTable';
+import Footer from '../footer/footer';
 
 import './profileComponent.css';
 
 function ProfileComponent() {
-    const { email, name, isLoggedIn, level } = useSelector(state => state.auth);
+    const { email, name, isLoggedIn, level, token } = useSelector(state => state.auth);
+    const [userName, setUserName] = useState(name);
+    const [nameMsg, setNameMsg] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -15,12 +22,61 @@ function ProfileComponent() {
         }
     })
 
+    const onChangeName = (e) => {
+        setUserName(e.target.value);
+    }
+
+    const onSubmitName = (e) => {
+        e.preventDefault();
+        dispatch(changeNameAction(
+            userName,
+            token))
+        .then(() => {
+            setNameMsg('Name changed');
+        })
+        .catch((e) => {
+            console.error('something goes wrong...');
+            setNameMsg('Sorry, something goes wrong');
+        });
+    }
+
+    const onSubmitPassword = (e) => {
+        console.log(e.target.value)
+    }
+
     return (
-        <div className="profile-wrapper">
-            <h1>Email = {email}</h1>
-            <h1>Name = {name}</h1>
-        </div>
+        <>
+            <div className="profile-wrapper">
+                <div className="profile-left">
+                    <img className="profile-image-center" src="/user-profile-image.svg" alt="user profile template" />
+                    <h4 className="left-column-h">{name}</h4>
+                    <h4 className="left-column-h">Status - <span className={level !== 'basic' ? 'level-premium' : 'level-basic' }>{level}</span></h4>
+                </div>
+
+                <div className="profile-right">
+                    <form className="form-inline" >
+                        <label htmlFor="email-text">Email:</label>
+                        <h5 id="email-text">{email}</h5>
+                    </form>
+                    <form className="form-inline" onSubmit={onSubmitName} >
+                        <label htmlFor="name">Name:</label>
+                        <input type="text" id="name" name="Name" value={userName} onChange={onChangeName} />
+                        <button type="submit">Change name</button>
+                    </form>
+                    {nameMsg ? <p>{nameMsg}</p> : null}
+                    <form className="form-inline" onSubmit={onSubmitPassword} >
+                        <label htmlFor="name">Password:</label>
+                        <input type="password" id="password" name="password" />
+                        <input type="password" id="password-repeat" name="password" />
+                        <button type="submit">Change password</button>
+                    </form>
+                </div>
+            </div>
+            
+            <PricingTable />
+            <Footer />
+        </>
     );
 }
 
-export default ProfileComponent;
+            export default ProfileComponent;

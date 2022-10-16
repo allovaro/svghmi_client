@@ -26,7 +26,6 @@ function App() {
                 <Route exact path="/test" element={<PricingTable />} />
                 <Route exact path="/forgot_password" element={<ForgotPassword />} />
                 <Route exact path="/reset_password/:token/:id" element={<ResetPasswordForm />} />
-                <Route exact path="/reset_password1" element={<ResetPasswordForm />} />
                 <Route exact path="/email_sent" element={<CommonMessage header="We sent you confirmation email." 
                     message="Please follow the instraction in email"/>} />
                 <Route exact path="/signup_confirm/:email/:id" element={<ConfirmationPage />} />

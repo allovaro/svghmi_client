@@ -49,6 +49,26 @@ export const login = (email, password) => {
   })
 };
 
+export const changeName = (name, token) => {
+  return fetch(`${API_SERVER}/users/change_credentials/name`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      name,
+    }),
+  })
+  .then((response) => (response.json()))
+  .then((data) => {
+    if (data.error) {
+      throw new Error("Not 2xx response", {cause: data});
+    }
+    localStorage.setItem("name", JSON.stringify(name));
+  })
+};
+
 export const logout = () => {
   localStorage.removeItem("name");
   localStorage.removeItem("email");

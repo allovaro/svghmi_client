@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Navbar from '../navBar/navBar';
+import Footer from '../footer/footer';
 import AppInfo from '../app-info/app-info';
 import Dropfiles from '../dropfiles/dropfiles';
 import SvghmiPreferences from '../svghmi-preferences/svghmi-preferences';
@@ -156,6 +157,7 @@ class Main extends Component {
                     optimized={this.state.optimized}
                     config={this.state.optimizeConf}
                     onConfigChanged={this.onConfigChanged} />
+                <Footer />
             </>
         );
     }

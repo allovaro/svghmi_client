@@ -1,9 +1,91 @@
 .profile-wrapper {
+    width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 25px;
     background-color: #3d5a80;
     border-radius: 4px;
     box-shadow: 15px 15px 30px rgba(0, 0, 0, .15);
+    box-sizing: border-box;
     color: #fff;
 }
+
+.profile-wrapper .profile-left,
+.profile-wrapper .profile-right{
+	display: inline-block;
+	vertical-align: top;
+}
+
+.profile-wrapper .profile-left{
+	width: 30%;
+}
+
+.profile-wrapper .profile-right{
+	width: 70%;
+}
+
+.left-column-h {
+    text-align: center;
+}
+
+.left-column-h .level-basic {
+    color:lightseagreen;
+}
+
+.left-column-h .level-premium {
+    color:rgb(89, 250, 15);
+}
+
+.profile-image-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    padding-bottom: 10%;
+  }
+
+ /* Style the form - display items horizontally */
+ .form-inline {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* Add some margins for each label */
+  .form-inline label {
+    margin: 5px 10px 5px 0;
+  }
+
+  /* Style the input fields */
+  .form-inline input {
+    vertical-align: middle;
+    margin: 5px 10px 5px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+  
+  /* Style the submit button */
+  .form-inline button {
+    padding: 10px 20px;
+    background-color: dodgerblue;
+    border: 1px solid #ddd;
+    color: white;
+  }
+  
+  .form-inline button:hover {
+    background-color: royalblue;
+  }
+  
+  /* Add responsiveness - display the form controls vertically instead of horizontally on screens that are less than 800px wide */
+  @media (max-width: 800px) {
+    .form-inline input {
+      margin: 10px 0;
+    }
+  
+    .form-inline {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  } 
