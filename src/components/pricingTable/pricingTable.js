@@ -2,13 +2,13 @@ import PricingElement from '../pricingElement/pricingElement';
 
 import './pricingTable.css';
 
-function PricingTable() {
+function PricingTable(props) {
     return (
         <div className="pricing-main-container" >
             <div className="pricing-container">
-                <PricingElement header="1 Month" price="10" />
-                <PricingElement header="3 Month" price="30" />
-                <PricingElement header="6 Month" price="55" />
+                <PricingElement month="1" price="10" onPurchase={props.onPurchase} />
+                <PricingElement month="3" price="27" onPurchase={props.onPurchase} />
+                <PricingElement month="6" price="55" onPurchase={props.onPurchase} />
             </div>
         </div>
     )

@@ -4,21 +4,20 @@ function PricingElement(props) {
     return (
         <div className="pricing-table">
             <div className="pricing-table-header">
-                <h1>{props.header}</h1>
+                <h1>{props.month} MONTH</h1>
             </div>
 
             <div className="pricing-table-content">
                 <ul>
-                    <li><strong>75GB</strong> Disk Space</li>
-                    <li><strong>50</strong> Email Addresses</li>
-                    <li><strong>20</strong> Subdomains</li>
-                    <li><strong>50</strong> MySQL Databases</li>
+                    <li><strong>100</strong> Files per batch</li>
+                    <li><strong>2Mb</strong> Max file size</li>
+                    <li><strong>{props.month}</strong> Month of premium</li>
                 </ul>
             </div>
 
             <div className="pricing-table-footer">
                 <h2><sup>$</sup>{props.price}</h2>
-                <a href="https://cryptopay.com">Purchase</a>
+                <button onClick={() => props.onPurchase(props.price, props.month)} >Purchase</button>
             </div>
         </div>
     )

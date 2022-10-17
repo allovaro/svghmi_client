@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { changeNameAction } from '../../store/actions/auth';
 
 import PricingTable from '../pricingTable/pricingTable';
-import Footer from '../footer/footer';
 
 import './profileComponent.css';
 
@@ -44,6 +43,10 @@ function ProfileComponent() {
         console.log(e.target.value)
     }
 
+    const onPurchase = (amount) => {
+        console.log(amount);
+    }
+
     return (
         <>
             <div className="profile-wrapper">
@@ -64,7 +67,7 @@ function ProfileComponent() {
                         <button type="submit">Change name</button>
                     </form>
                     {nameMsg ? <p>{nameMsg}</p> : null}
-                    <form className="form-inline" onSubmit={onSubmitPassword} >
+                    <form onSubmit={onSubmitPassword} >
                         <label htmlFor="name">Password:</label>
                         <input type="password" id="password" name="password" />
                         <input type="password" id="password-repeat" name="password" />
@@ -73,10 +76,9 @@ function ProfileComponent() {
                 </div>
             </div>
             
-            <PricingTable />
-            <Footer />
+            <PricingTable onPurchase={onPurchase}/>
         </>
     );
 }
 
-            export default ProfileComponent;
+export default ProfileComponent;

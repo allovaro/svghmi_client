@@ -1,5 +1,6 @@
 import Navbar from '../navBar/navBar';
 import ProfileComponent from '../profileComponent/profileComponent';
+import Footer from '../footer/footer';
 
 function ProfilePage() {
     
@@ -7,6 +8,7 @@ function ProfilePage() {
         <>
             <Navbar />
             <ProfileComponent />
+            <Footer />
         </>
     )
 }

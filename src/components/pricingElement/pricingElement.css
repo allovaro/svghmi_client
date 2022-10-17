@@ -71,7 +71,7 @@
 .pricing-table-content ul li {
     border-bottom: 1px solid #efeff0;
     font-size: 14px;
-    padding: 10px 56px;
+    padding: 10px 20px;
 }
 
 .pricing-table-footer {
@@ -93,7 +93,7 @@
     text-transform: uppercase;
 }
 
-.pricing-table-footer a {
+.pricing-table-footer button {
     background: #50b7e4;
     /* Old browsers */
     background: -moz-linear-gradient(top, #50b7e4 0%, #3098c4 100%);

@@ -1,5 +1,6 @@
 import { Dropzone, FileItem } from "@dropzone-ui/react";
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { API_SERVER } from "../../config/constant";
 
 import './dropfiles.css';
@@ -8,8 +9,9 @@ function Dropfiles(props) {
     const { id, files, setFiles, onUploaded } = props;
     const [showArrow, setShowArror] = useState(false);
 
+    const { level } = useSelector(state => state.auth);
+
     const updateFiles = (incommingFiles) => {
-        // console.log(incommingFiles)
         if (incommingFiles.length === 0) {
             setShowArror(false);
             return;
@@ -24,11 +26,9 @@ function Dropfiles(props) {
             setShowArror(false);
         }
         setFiles(newFiles);
-        
     };
 
     const uploadFinished = (files) => {
-        // console.log(`Uploaded ${files.length} files`);
         onUploaded();
         setShowArror(false);
     }
@@ -42,8 +42,8 @@ function Dropfiles(props) {
                 label="Drop your svg files here"
                 onChange={updateFiles}
                 value={files}
-                maxFiles={100}
-                maxFileSize={1024000}
+                maxFiles={level === 'premium' ? 100 : 1}
+                maxFileSize={level === 'premium' ? 2097152 : 102400}
                 url={`${API_SERVER}/convertor/upload-files/${id}`}
                 onUploadFinish={uploadFinished} >
                 {files.map((file) => (
