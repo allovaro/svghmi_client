@@ -39,7 +39,9 @@ export const login = (email, password) => {
       throw new Error("Not 2xx response", {cause: data});
     }
     if (data.access_token) {
+      console.log(data.id);
       localStorage.setItem("name", JSON.stringify(data.name));
+      localStorage.setItem("user_id", JSON.stringify(data.id));
       localStorage.setItem("email", JSON.stringify(data.user));
       localStorage.setItem("token", JSON.stringify(data.access_token));
       localStorage.setItem("level", JSON.stringify(data.level));

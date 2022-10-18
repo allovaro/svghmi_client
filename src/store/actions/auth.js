@@ -50,6 +50,7 @@ export const loginAction = (username, password) => (dispatch) => {
         type: LOGIN_SUCCESS,
         payload: {
           name: data.name,
+          user_id: data.id,
           email: data.user,
           level: data.level,
           token: data.access_token,

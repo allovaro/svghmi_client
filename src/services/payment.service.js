@@ -1,4 +1,4 @@
-import { API_CRYPTOCLOUD, AUTH_CRYPTOCLOUD, SHOP_ID } from '../config/constant';
+import { API_SERVER, API_CRYPTOCLOUD, AUTH_CRYPTOCLOUD, SHOP_ID } from '../config/constant';
 
 
 export const createInvoice = async (amount, user_id, currency, email) => {
@@ -15,6 +15,29 @@ export const createInvoice = async (amount, user_id, currency, email) => {
                 order_id: user_id,
                 currency,
                 email,
+            }),
+        });
+        const data = await res.json();
+        console.log(data);
+        return data;
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
+}
+
+export const saveInvoice = async (period, user_id, invoice, token) => {
+    try {
+        const res = await fetch(`${API_SERVER}/payment/invoice`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Token ${token}`,
+            },
+            body: JSON.stringify({
+                period,
+                user_id,
+                invoice,
             }),
         });
         const data = await res.json();

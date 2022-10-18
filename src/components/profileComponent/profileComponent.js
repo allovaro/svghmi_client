@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { changeNameAction } from '../../store/actions/auth';
 
-import PricingTable from '../pricingTable/pricingTable';
+import Payment from '../payment/payment';
 
 import './profileComponent.css';
 
@@ -43,10 +43,6 @@ function ProfileComponent() {
         console.log(e.target.value)
     }
 
-    const onPurchase = (amount) => {
-        console.log(amount);
-    }
-
     return (
         <>
             <div className="profile-wrapper">
@@ -76,7 +72,7 @@ function ProfileComponent() {
                 </div>
             </div>
             
-            <PricingTable onPurchase={onPurchase}/>
+            <Payment />
         </>
     );
 }

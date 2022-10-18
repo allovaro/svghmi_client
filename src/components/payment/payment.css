@@ -1,0 +1,46 @@
+.payment-content {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 25px;
+    background-color: #3d5a80;
+    border-radius: 4px;
+    box-shadow: 15px 15px 30px rgba(0, 0, 0, .15);
+    box-sizing: border-box;
+}
+
+.link-block {
+    display: block;
+    text-align: center;
+}
+
+.link-header {
+    font-size: 2em;
+    margin: auto;
+    font-weight: bold;
+    color: #fff;
+}
+
+.a_link {
+    border-radius: 4px;
+    background: transparent;
+    padding: 10px 22px;
+    color: #fff;
+    outline: none;
+    border: 1px solid #fff;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    margin-left: 24px;
+}
+
+.a_link :hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #a30101;
+}
