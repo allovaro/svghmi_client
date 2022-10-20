@@ -18,7 +18,6 @@ export const createInvoice = async (amount, user_id, currency, email) => {
             }),
         });
         const data = await res.json();
-        console.log(data);
         return data;
     } catch (err) {
         console.error(err);
@@ -41,9 +40,6 @@ export const saveInvoice = async (period, user_id, invoice, token) => {
             }),
         });
         const data = await res.json();
-        if (!data.ok) {
-            throw new Error("Not 2xx response", {code: data.status});
-        }
         return data;
     } catch (err) {
         console.error(err);
@@ -64,9 +60,26 @@ export const checkInvoice = async (uuid) => {
             }),
         });
         const data = await res.json();
-        if (!data.ok) {
-            throw new Error("Not 2xx response", {code: data.status});
-        }
+        return data;
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
+}
+
+export const getActiveInvoice = async (user_id, token) => {
+    try {
+        const res = await fetch(`${API_SERVER}/payment/invoice/active`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Token ${token}`,
+            },
+            body: JSON.stringify({
+                user_id,
+            }),
+        });
+        const data = await res.json();
         return data;
     } catch (err) {
         console.error(err);
