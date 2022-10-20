@@ -23,7 +23,6 @@ function ProfileComponent() {
     const dispatch = useDispatch();
 
     const isValidEmail = (email) => (/\S+@\S+\.\S+/.test(email));
-    let premium_expired = 0;
 
     useEffect(() => {
         if (!isLoggedIn) {
@@ -38,7 +37,6 @@ function ProfileComponent() {
             }
         }
         fetchVal();
-        
     })
 
     const onChangeName = (e) => {

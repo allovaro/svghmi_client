@@ -5,6 +5,7 @@ import Footer from '../footer/footer';
 import AppInfo from '../app-info/app-info';
 import Dropfiles from '../dropfiles/dropfiles';
 import SvghmiPreferences from '../svghmi-preferences/svghmi-preferences';
+import Payment from '../payment/payment';
 
 import { API_SERVER, CONFIG_DEFAULT } from './../../config/constant';
 
@@ -23,23 +24,6 @@ class Main extends Component {
             uploaded: false,
             loader: false,
             error: false,
-        }
-    }
-
-    async componentDidMount() {
-        try {
-            const res = await fetch('https://geolocation-db.com/json/');
-            const data = await res.json();
-            await fetch(`${API_SERVER}/users/user_from`, {
-                method: 'POST',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data),
-            })
-        } catch (Err) {
-            console.log(Err)
         }
     }
 
@@ -157,6 +141,7 @@ class Main extends Component {
                     optimized={this.state.optimized}
                     config={this.state.optimizeConf}
                     onConfigChanged={this.onConfigChanged} />
+                <Payment />
                 <Footer />
             </>
         );
