@@ -111,7 +111,7 @@ function LoginForm(props) {
             </div>
             <button className={submitClass} type="submit">{props.mode === 'login' ? 'Log In' : 'Sign Up'}</button>
             { errorMessage }
-            { props.mode === 'login' ? <button className="button-forgot" onClick={onForgot} >Forgot password?</button> : null }
+            { props.mode === 'login' ? <button className="button-forgot" onClick={onForgot} >Forgotten your password?</button> : null }
         </form>
     )
 }

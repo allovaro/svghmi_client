@@ -83,24 +83,31 @@ function ProfileComponent() {
         dispatch(changeNameAction(
             userName,
             token))
-        .then(() => {
-            setNameMsg({
-                style: 'success',
-                text: 'Name changed',
+            .then(() => {
+                setNameMsg({
+                    style: 'success',
+                    text: 'Name changed',
+                });
+            })
+            .catch((e) => {
+                console.error('something goes wrong...');
+                setNameMsg({
+                    style: 'error',
+                    text: 'Sorry, something went wrong',
+                });
             });
-        })
-        .catch((e) => {
-            console.error('something goes wrong...');
-            setNameMsg({
-                style: 'error',
-                text: 'Sorry, something went wrong',
-            });
-        });
     }
 
     const onSubmitPassword = async (e) => {
         e.preventDefault();
         if (pass1 === pass2) {
+            if (pass1.length < 6) {
+                setPassMsg({
+                    style: 'error',
+                    text: 'password must be at least 6 characters long',
+                });
+                return;
+            }
             const res = await changePassword(pass1, token);
             if (res.error) {
                 setPassMsg({
@@ -131,7 +138,7 @@ function ProfileComponent() {
 
     const ExpiresOn = () => (
         <h4 className="left-column-h">
-            Expires on - {}<span className={level !== 'basic' ? 'level-premium' : 'level-basic' }>{premium}</span>
+            Expires on - { }<span className={level !== 'basic' ? 'level-premium' : 'level-basic'}>{premium}</span>
         </h4>
     );
 
@@ -141,13 +148,13 @@ function ProfileComponent() {
                 <div className="profile-left">
                     <img className="profile-image-center" src="/user-profile-image.svg" alt="user profile template" />
                     <h4 className="left-column-h">{name}</h4>
-                    <h4 className="left-column-h">Account - <span className={level !== 'basic' ? 'level-premium' : 'level-basic' }>{level}</span></h4>
-                    { level === 'premium' ? <ExpiresOn /> : null }
+                    <h4 className="left-column-h">Account - <span className={level !== 'basic' ? 'level-premium' : 'level-basic'}>{level}</span></h4>
+                    {level === 'premium' ? <ExpiresOn /> : null}
                 </div>
 
                 <div className="profile-right">
                     <h2>Credentials</h2>
-                    <hr/>
+                    <hr />
                     <form className="form-inline" onSubmit={onSubmitEmail} >
                         <label htmlFor="email">Email:</label>
                         <input type="text" id="email" name="Email" value={userEmail} onChange={onChangeEmail} />

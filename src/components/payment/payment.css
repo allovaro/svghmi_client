@@ -15,12 +15,44 @@
 }
 
 .payment-header {
-    font-size: 2.5em;
-    margin: auto;
+    font-size: 1.5em;
+    margin: 10px auto;
     font-weight: bold;
     color: #fff;
     text-align: center;
 }
+
+.payment-promo {
+    color: #fff;
+    margin: 0 auto;
+    width: 80%;
+    text-align: justify;
+}
+
+.payment-promo-features {
+    color: rgb(13, 158, 255);
+    font-size: 1.2em;
+}
+
+.payment-promo-highlight {
+    color: rgb(84, 255, 50);
+    font-size: 1.1em;
+    font-style: italic;
+}
+
+.cannot-donate {
+    /* font-family: arial; */
+    font-style: italic;
+}
+
+.payment-promo-options {
+    color: #fff;
+    font-size: 0.8em;
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+}
+
 
 .link-block {
     display: block;
