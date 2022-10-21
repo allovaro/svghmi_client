@@ -112,6 +112,7 @@ export const changeEmail = async (email, token) => {
             }),
         });
         const data = await res.json();
+        localStorage.setItem("email", JSON.stringify(email));
         return data;
     } catch (err) {
         console.error(err);
