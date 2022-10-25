@@ -13,11 +13,14 @@ function Payment(props) {
     const [error, setError] = useState(false);
     const [ready, setReady] = useState(false);
     const [link, setLink] = useState(null);
-    const { user_id, isLoggedIn, token } = useSelector(state => state.auth);
+    const { user_id, isLoggedIn, token, email } = useSelector(state => state.auth);
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!isLoggedIn) {
+            return;
+        }
         async function getLastInvoice() {
             const data = await getActiveInvoice(user_id, token);
             if (data.status) {
@@ -26,7 +29,7 @@ function Payment(props) {
             }
         }
         getLastInvoice();
-    }, [token, user_id]);
+    }, [token, user_id, isLoggedIn]);
 
     const onPurchase = async (amount, period) => {
         if (!isLoggedIn) {
@@ -35,22 +38,23 @@ function Payment(props) {
         }
         setLoader(true);
 
-        // test only
-        setLoader(false);
-        setReady(true);
-        setLink('https://google.com');
-        return;
+        // // test only
+        // setLoader(false);
+        // setReady(true);
+        // setLink('https://google.com');
+        // return;
 
         // const invoice = await createInvoice(amount, user_id, 'USD', email);
-        // if (invoice && invoice.status === 'success') {
-        //     await saveInvoice(period, user_id, invoice, token);
-        //     setLoader(false);
-        //     setReady(true);
-        //     setLink(invoice.pay_url);
-        //     return;
-        // }
-        // setError(true);
-        // setLoader(false);
+        const invoice = await createInvoice(2, user_id, 'USD', email);
+        if (invoice && invoice.status === 'success') {
+            await saveInvoice(period, user_id, invoice, token);
+            setLoader(false);
+            setReady(true);
+            setLink(invoice.pay_url);
+            return;
+        }
+        setError(true);
+        setLoader(false);
     }
 
     const onNewInvoice = () => {
