@@ -1,6 +1,7 @@
 import { Dropzone, FileItem } from "@dropzone-ui/react";
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import ReactGA from 'react-ga';
 import { API_SERVER } from "../../config/constant";
 
 import './dropfiles.css';
@@ -29,6 +30,10 @@ function Dropfiles(props) {
     };
 
     const uploadFinished = (files) => {
+        ReactGA.event({
+            category: 'User',
+            action: 'Upload svg files action'
+        });
         onUploaded();
         setShowArror(false);
     }

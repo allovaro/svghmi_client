@@ -17,18 +17,22 @@ function PaymentResult(props) {
         bgColorClass += ' payment_failed';
         HeaderText = 'Payment Failed';
     }
+
+    const text = props.type === 'success' ? 'Thank you for purchaise, now you have a premium subscription.' :
+        'Sorry, something went wrong, you can write me a letter and we will deal with it.';
     return (
         <MessageTemplate>
             <div className="payment">
-            <div className={bgColorClass} >
-               <div className="payment_check"><i className={iconClass} aria-hidden="true"></i></div>
+                <div className={bgColorClass} >
+                    <div className="payment_check"><i className={iconClass} aria-hidden="true"></i></div>
+                </div>
+                <div className="payment_content">
+                <h1>{HeaderText}</h1>
+                <p>{text}</p>
+                {props.type === 'fail' ? <a href = "mailto: cirillsokolov@proton.me">cirillsokolov@proton.me</a>: null}
+                <Link to="/">Go to Home</Link>
+                </div>
             </div>
-            <div className="payment_content">
-               <h1>{HeaderText}</h1>
-               <p>Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. </p>
-               <Link to="/">Go to Home</Link>
-            </div>
-         </div>
         </MessageTemplate>
     )
 }

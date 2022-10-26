@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga';
 import { API_SERVER } from "../../config/constant";
 
 import './controls.css';
@@ -22,8 +23,16 @@ const Controls = (props) => {
     const onClick = async () => {
         if (uploaded && !optimized) {
             onOptimize();
+            ReactGA.event({
+                category: 'User',
+                action: 'Optimize svg files action'
+            });
         } else if (optimized) {
             onDownload();
+            ReactGA.event({
+                category: 'User',
+                action: 'Download svghmi.zip action'
+            });
         }
     }
 
