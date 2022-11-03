@@ -1,7 +1,7 @@
 import { Dropzone, FileItem } from "@dropzone-ui/react";
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 import { API_SERVER } from "../../config/constant";
 
 import './dropfiles.css';
@@ -26,13 +26,20 @@ function Dropfiles(props) {
         if (newFiles.length === 0) {
             setShowArror(false);
         }
+        ReactGA.event({
+            category: "Convertion",
+            action: "delete svg files",
+            label: "delete",
+        });
         setFiles(newFiles);
     };
 
     const uploadFinished = (files) => {
         ReactGA.event({
-            category: 'User',
-            action: 'Upload svg files action'
+            category: "Convertion",
+            action: "upload svg files",
+            label: "upload",
+            value: files.length,
         });
         onUploaded();
         setShowArror(false);

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import ReactGA from 'react-ga4';
 
 import PricingTable from '../pricingTable/pricingTable';
 import Loader from '../loader/loader';
@@ -37,20 +38,18 @@ function Payment(props) {
             return;
         }
         setLoader(true);
-
-        // // test only
-        // setLoader(false);
-        // setReady(true);
-        // setLink('https://google.com');
-        // return;
-
-        // const invoice = await createInvoice(amount, user_id, 'USD', email);
-        const invoice = await createInvoice(2, user_id, 'USD', email);
+        const invoice = await createInvoice(amount, user_id, 'USD', email);
         if (invoice && invoice.status === 'success') {
             await saveInvoice(period, user_id, invoice, token);
             setLoader(false);
             setReady(true);
             setLink(invoice.pay_url);
+            ReactGA.event({
+                category: "Payment",
+                action: "create invoice",
+                label: "invoice",
+                value: period,
+            });
             return;
         }
         setError(true);

@@ -1,4 +1,4 @@
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 import { API_SERVER } from "../../config/constant";
 
 import './controls.css';
@@ -17,21 +17,22 @@ const Controls = (props) => {
         } catch (Err) {
             console.error('Something went wrong with downloading...');
         }
-        
     }
 
     const onClick = async () => {
         if (uploaded && !optimized) {
             onOptimize();
             ReactGA.event({
-                category: 'User',
-                action: 'Optimize svg files action'
+                category: "Convertion",
+                action: "optimize svg files",
+                label: "optimize",
             });
         } else if (optimized) {
             onDownload();
             ReactGA.event({
-                category: 'User',
-                action: 'Download svghmi.zip action'
+                category: "Convertion",
+                action: "download svghmi.zip",
+                label: "download",
             });
         }
     }

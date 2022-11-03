@@ -1,6 +1,7 @@
 import { Component, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
+import ReactGA from 'react-ga4';
 import { registerAction, loginAction } from '../../store/actions/auth';
 import './loginComponent.css';
 
@@ -65,6 +66,7 @@ function LoginForm(props) {
                 login.email_signup,
                 login.createpassword))
             .then(() => {
+                ReactGA.event('sign_up', { method: 'svghmi' });
                 navigate(`/email_sent`);
             })
             .catch(() => {
@@ -73,6 +75,7 @@ function LoginForm(props) {
         } else {
             dispatch(loginAction(login.email, login.password))
             .then(() => {
+                ReactGA.event('login', { method: 'svghmi' });
                 navigate('/');
             })
             .catch(() => {
