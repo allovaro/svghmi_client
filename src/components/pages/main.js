@@ -52,9 +52,14 @@ class Main extends Component {
         };
 
         try {
-            const response = await fetch(`${API_SERVER}/convertor/optimize/${this.state.clientId}`, options);
-            await response.json()
-            if (response.status) {
+            fetch(`${API_SERVER}/convertor/optimize/${this.state.clientId}`, options).then(res => {
+                if (res.status>=200 && res.status <300) {
+                  return res.json()
+                }else{
+                  throw new Error();
+                }
+            }).then(data=> {
+                console.log(data)
                 this.setState((prevState) => ({
                     optimized: true,
                     uploaded: false,
@@ -63,7 +68,8 @@ class Main extends Component {
                     loader: false,
                     error: false,
                 }));
-            }
+            });
+
         } catch (Err) {
             console.error('Something went wrong...');
             this.setState((prevState) => ({
