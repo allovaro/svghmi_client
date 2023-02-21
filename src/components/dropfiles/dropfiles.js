@@ -51,7 +51,7 @@ function Dropfiles(props) {
             {showArrow ? <div className="arrow bounce"></div> : null}
             <Dropzone
                 accept=".svg"
-                label="Drop your svg files here"
+                label="Drop files here"
                 onChange={updateFiles}
                 value={files}
                 maxFiles={level === 'premium' ? 100 : 1}
