@@ -11,7 +11,7 @@ import { store } from './store';
 
 
 
-document.title = `${BASE_TITLE} | Professional Engineering Tool for WinCC Unified widgets`;
+document.title = `${BASE_TITLE} | Tool for creating dynamic WinCC Unified widgets`;
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
