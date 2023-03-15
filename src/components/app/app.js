@@ -20,10 +20,6 @@ import { GA_ID } from '../../config/constant';
 ReactGA.initialize(GA_ID);
 
 function App() {
-    // useEffect(() => {
-    //     ReactGA.pageview(window.location.pathname + window.location.search);
-    // }, []);
-
     return (
         <div className="app">
             <Routes>

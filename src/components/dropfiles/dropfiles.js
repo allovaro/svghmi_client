@@ -1,5 +1,4 @@
 import { Dropzone, FileItem } from "@dropzone-ui/react";
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import ReactGA from 'react-ga4';
 import { API_SERVER } from "../../config/constant";
@@ -7,24 +6,22 @@ import { API_SERVER } from "../../config/constant";
 import './dropfiles.css';
 
 function Dropfiles(props) {
-    const { id, files, setFiles, onUploaded } = props;
-    const [showArrow, setShowArror] = useState(false);
+    const { id, files, setFiles, onUploaded, onClear } = props;
 
     const { level } = useSelector(state => state.auth);
 
     const updateFiles = (incommingFiles) => {
-        if (incommingFiles.length === 0) {
-            setShowArror(false);
-            return;
-        }
         setFiles(incommingFiles);
-        setShowArror(true);
+        if (incommingFiles.length === 0) {
+            onClear();
+        }
     };
 
     const onDelete = (id) => {
         const newFiles = files.filter((x) => x.id !== id);
         if (newFiles.length === 0) {
-            setShowArror(false);
+            onClear();
+            console.log('onClear event generated')
         }
         ReactGA.event({
             category: "Convertion",
@@ -42,16 +39,15 @@ function Dropfiles(props) {
             value: files.length,
         });
         onUploaded();
-        setShowArror(false);
     }
 
     return (
         <div className="dropfiles">
             <h3 className="dropfile-header">Upload your files here</h3>
-            {showArrow ? <div className="arrow bounce"></div> : null}
             <Dropzone
                 accept=".svg"
                 label="Drop files here"
+                uploadOnDrop
                 onChange={updateFiles}
                 value={files}
                 maxFiles={level === 'premium' ? 100 : 1}

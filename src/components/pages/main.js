@@ -137,6 +137,7 @@ class Main extends Component {
                     files={this.state.files}
                     setFiles={this.setFiles}
                     onUploaded={() => (this.setState({ optimized: false, uploaded: true }))}
+                    onClear={() => (this.setState({ optimized: false, uploaded: false }))}
                     id={this.state.clientId} />
                 <SvghmiPreferences
                     error={this.state.error}
