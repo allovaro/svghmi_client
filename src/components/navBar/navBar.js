@@ -8,7 +8,7 @@ import './navBar.css'
 const Navbar = () => {
     const { name } = useSelector(state => state.auth);
     const { isLoggedIn } = useSelector(state => state.auth);
-
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

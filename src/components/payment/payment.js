@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import ReactGA from 'react-ga4';
 
 import PricingTable from '../pricingTable/pricingTable';
 import Loader from '../loader/loader';
 import { createInvoice, saveInvoice, getActiveInvoice } from '../../services/payment.service';
+import { logoutAction } from "../../store/actions/auth";
 
 import './payment.css';
 
@@ -16,6 +17,8 @@ function Payment(props) {
     const [link, setLink] = useState(null);
     const { user_id, isLoggedIn, token, email } = useSelector(state => state.auth);
 
+    const dispatch = useDispatch();
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,13 +27,17 @@ function Payment(props) {
         }
         async function getLastInvoice() {
             const data = await getActiveInvoice(user_id, token);
+            if (data.error && data.msg === 'Token expired') {
+                dispatch(logoutAction());
+                navigate('/');
+            }
             if (data.status) {
                 setReady(true);
                 setLink(data.invoice.pay_url);
             }
         }
         getLastInvoice();
-    }, [token, user_id, isLoggedIn]);
+    }, [token, user_id, isLoggedIn, dispatch, navigate]);
 
     const onPurchase = async (amount, period) => {
         if (!isLoggedIn) {
