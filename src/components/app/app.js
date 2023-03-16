@@ -12,6 +12,7 @@ import CommonMessage from '../commonMessage/commonMessage';
 import ForgotPassword from '../forgotPassword/forgotPassword';
 import ResetPasswordForm from '../resetPasswordForm/resetPasswordForm';
 import ConfirmationPage from '../pages/confirmationPage';
+import ExamplesPage from '../pages/examplesPage';
 
 import './app.css';
 
@@ -39,6 +40,7 @@ function App() {
                     message="Please follow the instraction in email"/>} />
                 <Route exact path="/reset_password_successfull" element={<CommonMessage header="You set new password!" 
                     message="Great, you set new password, and can continue use our service"/>} />
+                <Route exact path="/examples" element={<ExamplesPage/>} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </div>

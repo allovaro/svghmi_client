@@ -2,6 +2,7 @@ import { Dropzone, FileItem } from "@dropzone-ui/react";
 import { useSelector } from 'react-redux';
 import ReactGA from 'react-ga4';
 import { API_SERVER } from "../../config/constant";
+import Controls from "../controls/controls";
 
 import './dropfiles.css';
 
@@ -58,6 +59,12 @@ function Dropfiles(props) {
                     <FileItem onDelete={onDelete} {...file} preview />
                 ))}
             </Dropzone>
+            <Controls
+                onOptimize={props.onOptimize}
+                downloadId={props.downloadId}
+                loader={props.loader}
+                uploaded={props.uploaded}
+                optimized={props.optimized} />
         </div>
     );
 }
