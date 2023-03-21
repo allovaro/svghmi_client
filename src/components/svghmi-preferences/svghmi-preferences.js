@@ -46,6 +46,12 @@ const SvghmiPreferences = (props) => {
                             checked={config.optimization.addDefaults}
                             onClick={onConfigChanged} />
                         <CheckBoxItem
+                            id="pretify"
+                            label="Pretify svg"
+                            section="optimization"
+                            checked={config.optimization.pretify}
+                            onClick={onConfigChanged} />
+                        <CheckBoxItem
                             id="delGradientTransform"
                             label="Remove <gradientTransform> attribute and recalculate x(cx), y(cy)"
                             section="optimization"
