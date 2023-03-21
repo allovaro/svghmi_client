@@ -1,6 +1,5 @@
 import CheckBoxItem from "../checkBoxItem/checkBoxItem";
 import InputFieldItem from "../inputFieldItem/inputFieldItem";
-import Controls from "../controls/controls";
 import Error from "../error/error";
 
 import './svghmi-preferences.css';
@@ -27,12 +26,6 @@ const SvghmiPreferences = (props) => {
 
     return (
         <div className='svghmi-preferences'>
-            <Controls
-                onOptimize={props.onOptimize}
-                downloadId={props.downloadId}
-                loader={props.loader}
-                uploaded={props.uploaded}
-                optimized={props.optimized} />
             {error ? <Error text="=( Sorry, something went wrong, try another svg files..." /> : null}
             <div className="wrap-collabsible">
                 <input id="collapsible1" className="toggle" type="checkbox" />

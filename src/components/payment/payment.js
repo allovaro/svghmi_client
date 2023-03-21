@@ -41,7 +41,7 @@ function Payment(props) {
 
     const onPurchase = async (amount, period) => {
         if (!isLoggedIn) {
-            navigate('/login');
+            navigate('/signup');
             return;
         }
         setLoader(true);

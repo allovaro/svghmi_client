@@ -138,14 +138,14 @@ class Main extends Component {
                     setFiles={this.setFiles}
                     onUploaded={() => (this.setState({ optimized: false, uploaded: true }))}
                     onClear={() => (this.setState({ optimized: false, uploaded: false }))}
-                    id={this.state.clientId} />
-                <SvghmiPreferences
-                    error={this.state.error}
+                    id={this.state.clientId}
                     onOptimize={this.optimizeFiles}
                     downloadId={this.state.downloadId}
                     loader={this.state.loader}
                     uploaded={this.state.uploaded}
-                    optimized={this.state.optimized}
+                    optimized={this.state.optimized} />
+                <SvghmiPreferences
+                    error={this.state.error}
                     config={this.state.optimizeConf}
                     onConfigChanged={this.onConfigChanged} />
                 <Payment />
