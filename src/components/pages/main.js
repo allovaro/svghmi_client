@@ -6,6 +6,7 @@ import AppInfo from '../app-info/app-info';
 import Dropfiles from '../dropfiles/dropfiles';
 import SvghmiPreferences from '../svghmi-preferences/svghmi-preferences';
 import Payment from '../payment/payment';
+import FaqComponent from '../faqComponent/faqComponent';
 
 import { API_SERVER, CONFIG_DEFAULT } from './../../config/constant';
 
@@ -149,6 +150,7 @@ class Main extends Component {
                     config={this.state.optimizeConf}
                     onConfigChanged={this.onConfigChanged} />
                 <Payment />
+                <FaqComponent />
                 <Footer />
             </>
         );

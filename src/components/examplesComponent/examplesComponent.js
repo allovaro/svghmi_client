@@ -7,7 +7,7 @@ function ExamplesComponent() {
     
     return (
         <>
-            <h1>example</h1>
+            <h3>Examples</h3>
         </>
     )
 }
