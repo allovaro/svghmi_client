@@ -18,7 +18,7 @@ import './app.css';
 
 import { GA_ID } from '../../config/constant';
 
-ReactGA.initialize(GA_ID);
+// ReactGA.initialize(GA_ID);
 
 function App() {
     return (
