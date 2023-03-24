@@ -1,4 +1,3 @@
-// import { Component } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
@@ -8,12 +7,11 @@ import AppInfo from '../app-info/app-info';
 import Dropfiles from '../dropfiles/dropfiles';
 import SvghmiPreferences from '../svghmi-preferences/svghmi-preferences';
 import Payment from '../payment/payment';
-import FaqComponent from '../faqComponent/faqComponent';
+// import FaqComponent from '../faqComponent/faqComponent';
 
 import { API_SERVER, CONFIG_DEFAULT } from './../../config/constant';
 
 import '../app/baner.css';
-
 
 function Main(props) {
     const [clientId, setClientId] = useState(uuidv4().split('-').join(''));
@@ -61,7 +59,6 @@ function Main(props) {
             });
 
         } catch (Err) {
-            console.error('Something went wrong...');
             console.error(Err)
             setOptimized(false);
             setUploaded(false);
@@ -136,7 +133,7 @@ function Main(props) {
                 config={optimizeConf}
                 onConfigChanged={onConfigChanged} />
             <Payment />
-            <FaqComponent />
+            {/* <FaqComponent /> */}
             <Footer />
         </>
     );

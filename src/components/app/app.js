@@ -1,6 +1,6 @@
-// import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import ReactGA from 'react-ga4';
+
+import useGaTracker from '../../hooks/useGaTracker';
 
 import Main from '../pages/main';
 import Login from '../pages/login';
@@ -16,11 +16,10 @@ import ExamplesPage from '../pages/examplesPage';
 
 import './app.css';
 
-import { GA_ID } from '../../config/constant';
-
-// ReactGA.initialize(GA_ID);
 
 function App() {
+    useGaTracker();
+
     return (
         <div className="app">
             <Routes>
