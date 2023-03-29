@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import MessageTemplate from "../messageTemplate/messageTemplate";
-import { API_SERVER } from "../../config/constant";
+
+import { resetPassword } from "../../services/users.service";
 
 import './forgotPassword.css';
 
@@ -22,38 +23,25 @@ function ForgotPassword() {
         setEmail(value);
     }
 
-    const requestReset = (email) => {
-        return fetch(`${API_SERVER}/users/reset_password`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              email,
-            }),
-          })
-          .then((response) => (response.json()))
-          .then((data) => {
-            if (data.error) {
-              throw new Error("Not 2xx response", {cause: data});
-            }
-            return data;
-          });
+    const requestReset = async (email) => {
+        const data = await resetPassword(email);
+        if (data.error)
+            throw new Error("Not 2xx response", {cause: data});
+        return data;
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        requestReset(email)
-        .then(() => {
+        try {
+            await requestReset(email);
             navigate(`/reset_email_sent/${email}`);
-        })
-        .catch((error) => {
-            const message = (error.cause && error.cause.msg) ?
-                error.cause.msg : '';
+        } catch (err) {
+            const message = err.message;
             setErrorMsg(message);
             setEmail('');
-        });
+        }
     }
+
     let submitClass = 'buttonLogin button-login--primary full-width';
     if (!isValidEmail(email)) submitClass += ' button-login-disabled';
 

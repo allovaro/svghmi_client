@@ -42,7 +42,7 @@ function Main(props) {
         };
 
         try {
-            fetch(`${API_SERVER}/convertor/optimize/${clientId}`, options).then(res => {
+            fetch(`${API_SERVER}/converter/optimize/${clientId}`, options).then(res => {
                 if (res.status>=200 && res.status <300) {
                   return res.json()
                 }else{

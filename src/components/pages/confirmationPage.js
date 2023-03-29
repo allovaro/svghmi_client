@@ -1,28 +1,23 @@
 import { useState, useEffect } from "react";
 import { NavLink as Link, useParams } from "react-router-dom";
 import MessageTemplate from "../messageTemplate/messageTemplate";
-import { API_SERVER } from '../../config/constant';
+import { confirmEmail } from "../../services/users.service";
+
 
 function ConfirmationPage(props) {
     const params = useParams();
     const [error, setError] = useState('');
 
     useEffect(() => {
-        fetch(`${API_SERVER}/users/email/confirm/${params.id}`, {})
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data)
-            if (data.error) {
-                setError(data.msg);
-            } else {
-                setError('');
+        const fetchData = async () => {
+            try {
+                await confirmEmail(params.id);
+            } catch (err) {
+                setError(err.message);
             }
-        })
-        .catch((err) => {
-            setError('Network error');
-        })
-    });
-
+        }
+        fetchData();
+    }, [params.id]);
 
     return (
          <MessageTemplate>

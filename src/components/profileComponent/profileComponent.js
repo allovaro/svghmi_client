@@ -28,7 +28,7 @@ function ProfileComponent() {
         if (!isLoggedIn) {
             navigate('/');
         }
-        const fetchVal = async () => {
+        const fetchData = async () => {
             if (level === 'premium') {
                 const res = await getPremiumDate(token);
                 if (res.status) {
@@ -36,7 +36,7 @@ function ProfileComponent() {
                 }
             }
         }
-        fetchVal();
+        fetchData();
     })
 
     const onChangeName = (e) => {

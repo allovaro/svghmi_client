@@ -5,7 +5,7 @@ import ReactGA from 'react-ga4';
 
 import PricingTable from '../pricingTable/pricingTable';
 import Loader from '../loader/loader';
-import { createInvoice, saveInvoice, getActiveInvoice } from '../../services/payment.service';
+import { createInvoice, saveInvoice, getActiveInvoice } from '../../services/payments.service';
 import { logoutAction } from "../../store/actions/auth";
 
 import './payment.css';
