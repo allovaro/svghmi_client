@@ -1,14 +1,18 @@
 .report-block {
-    background-color:rgb(187, 187, 187);
+    background-color:rgb(255, 255, 255);
     margin: auto;
     width: 45%;
     font-size: 0.9rem;
     color:black;
     text-align: left;
     border-radius: 5px;
-    justify-content: center;
     align-items: center;
     min-width: 80px;
+}
+
+.report-block h5 {
+    padding-top: 0.6rem;
+    text-align: center;
 }
 
 .report-list {
@@ -30,7 +34,7 @@
 
 .report-list .tick-list-element:before {
     content: '\2713';  /* Tick */
-    color:rgb(42, 255, 14);
+    color:rgb(41, 245, 20);
 }
 
 .report-list li:before {
@@ -44,3 +48,21 @@
     float: right;
     font-style: italic;
 }
+
+.trigger {
+    width: 100%;
+    font-size: 1em;
+    align-items: center;
+    padding: 0.1rem;
+    min-height: 20px;
+    border: 2px solid #3ecf8e;
+    border-radius: 3px;
+    background-color: transparent;
+    color: #212121;
+}
+
+.trigger:focus {
+    border: 2px solid rgb(11, 14, 192);
+    outline: 0;
+}
+

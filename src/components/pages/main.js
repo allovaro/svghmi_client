@@ -23,6 +23,7 @@ function Main(props) {
     const [uploaded, setUploaded] = useState(false);
     const [loader, setLoader] = useState(false);
     const [error, setError] = useState(false);
+    const [reports, setReports] = useState([]);
  
     const { user_id } = useSelector(state => state.auth);
 
@@ -37,7 +38,9 @@ function Main(props) {
 
         try {
             const data = await optimize(clientId, optimizeConf, user_id);
-            console.log(data);
+            if (data.status) {
+                setReports(data.payload);
+            }
             setOptimized(true);
             setUploaded(false);
             setDownloadId(clientId);
@@ -107,13 +110,14 @@ function Main(props) {
                 files={files}
                 setFiles={setFiles}
                 onUploaded={() => { setOptimized(false); setUploaded(true);}}
-                onClear={() => { setOptimized(false); setUploaded(false);}}
+                onClear={() => { setOptimized(false); setUploaded(false); setReports([])}}
                 id={clientId}
                 onOptimize={optimizeFiles}
                 downloadId={downloadId}
                 loader={loader}
                 uploaded={uploaded}
-                optimized={optimized} />
+                optimized={optimized}
+                reports={reports} />
             <SvghmiPreferences
                 error={error}
                 config={optimizeConf}

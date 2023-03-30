@@ -15,6 +15,10 @@ export const getResource = async (url, token) => {
     const res = await fetch(`${API_SERVER}/${url}`, options);
     clearTimeout(id);
     if (!res.ok) {
+        const retVal = await res.json();
+        if (retVal && retVal.msg) {
+            throw new Error(retVal.msg);
+        }
         throw new Error(`Could not fetch ${url}`
         + `, received ${res.status}`);
     }
