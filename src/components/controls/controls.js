@@ -10,7 +10,7 @@ const Controls = (props) => {
     const onDownload = async () => {
         try {
             const element = document.createElement("a");
-            element.href = `${API_SERVER}/convertor/download/${downloadId}`;
+            element.href = `${API_SERVER}/converter/download/${downloadId}`;
             element.download = 'svghmi.zip'
             document.body.appendChild(element); // Required for this to work in FireFox
             element.click(); // simulate link click

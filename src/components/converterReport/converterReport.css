@@ -1,0 +1,46 @@
+.report-block {
+    background-color:rgb(187, 187, 187);
+    margin: auto;
+    width: 45%;
+    font-size: 0.9rem;
+    color:black;
+    text-align: left;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    min-width: 80px;
+}
+
+.report-list {
+    list-style: none;
+    padding: 0.2em 1.2em;
+}
+
+.report-list li {
+    position: relative;
+    list-style-type: none;
+    padding-left: 1.3rem;
+    margin-bottom: 0.2rem;
+}
+
+.report-list .cross-list-element:before {
+    content: '\2716';  /* Cross */
+    color: red;
+}
+
+.report-list .tick-list-element:before {
+    content: '\2713';  /* Tick */
+    color:rgb(42, 255, 14);
+}
+
+.report-list li:before {
+    position: absolute;
+    left: 0;
+    width: 2em;
+    height: 2em;
+}
+
+.info-block {
+    float: right;
+    font-style: italic;
+}

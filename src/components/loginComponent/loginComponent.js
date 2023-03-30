@@ -58,32 +58,30 @@ function LoginForm(props) {
         navigate(`/forgot_password`);
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         if (props.mode === 'signup' && isSignupFormValid()) {
-            dispatch(registerAction(
-                login.fullname,
-                login.email_signup,
-                login.createpassword))
-            .then(() => {
+            try {
+                await dispatch(registerAction(
+                    login.fullname,
+                    login.email_signup,
+                    login.createpassword));
                 ReactGA.event('sign_up', { method: 'svghmi' });
                 navigate(`/email_sent`);
-            })
-            .catch(() => {
-                console.error('something goes wrong...');
-            });
+            } catch (err) {
+                ReactGA.event('sign_up_error', { method: 'svghmi' });
+            }
         } else {
-            dispatch(loginAction(login.email, login.password))
-            .then(() => {
+            try {
+                await dispatch(loginAction(login.email, login.password));
                 ReactGA.event('login', { method: 'svghmi' });
                 navigate('/');
-            })
-            .catch(() => {
+            } catch (err) {
                 setLogin({...login, 
                     email: '',
                     password: '',
                 });
-            });
+            }
         }
     }
     const emailSignUpClass = isValidEmail(login.email_signup) ? 'form-group__input' : 'form-group__input error__input';

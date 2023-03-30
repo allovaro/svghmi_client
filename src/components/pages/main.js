@@ -9,7 +9,8 @@ import SvghmiPreferences from '../svghmi-preferences/svghmi-preferences';
 import Payment from '../payment/payment';
 // import FaqComponent from '../faqComponent/faqComponent';
 
-import { API_SERVER, CONFIG_DEFAULT } from './../../config/constant';
+import { optimize } from '../../services/converter.service';
+import { CONFIG_DEFAULT } from './../../config/constant';
 
 import '../app/baner.css';
 
@@ -33,33 +34,18 @@ function Main(props) {
         if (ids.length === 1 && ids[0] === '') {
             optimizeConf.optimization.connectBgColor = false;
         }
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ ...optimizeConf, user: user_id }),
-        };
 
         try {
-            fetch(`${API_SERVER}/converter/optimize/${clientId}`, options).then(res => {
-                if (res.status>=200 && res.status <300) {
-                  return res.json()
-                }else{
-                  throw new Error();
-                }
-            }).then(data=> {
-                console.log(data);
-                setOptimized(true);
-                setUploaded(false);
-                setDownloadId(clientId);
-                setClientId(uuidv4().split('-').join(''));
-                setLoader(false);
-                setError(false);
-            });
-
-        } catch (Err) {
-            console.error(Err)
+            const data = await optimize(clientId, optimizeConf, user_id);
+            console.log(data);
+            setOptimized(true);
+            setUploaded(false);
+            setDownloadId(clientId);
+            setClientId(uuidv4().split('-').join(''));
+            setLoader(false);
+            setError(false);
+        } catch (err) {
+            console.error(err)
             setOptimized(false);
             setUploaded(false);
             setDownloadId(clientId);

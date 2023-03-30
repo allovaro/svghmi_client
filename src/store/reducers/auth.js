@@ -4,6 +4,9 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  NAME_CHANGED,
+  NAME_CHANGE_FAILED,
+  EMAIL_CHANGED,
 } from "../actions/types";
 
 const name = JSON.parse(localStorage.getItem('name'));
@@ -63,6 +66,20 @@ export default function auth(state = initialState, action) {
         token: null,
         expires_in: null,
         level: null,
+      };
+    case NAME_CHANGED:
+      return {
+        ...state,
+        name: payload.name,
+      };
+    case NAME_CHANGE_FAILED:
+      return {
+        ...state,
+      };
+    case EMAIL_CHANGED:
+      return {
+        ...state,
+        email: payload.email,
       };
     default:
       return state;

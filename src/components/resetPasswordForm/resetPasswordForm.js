@@ -2,9 +2,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { logoutAction } from "../../store/actions/auth";
+import { setPassword } from '../../services/users.service';
 
 import MessageTemplate from "../messageTemplate/messageTemplate";
-import { API_SERVER } from '../../config/constant';
 
 import './resetPasswordForm.css';
 
@@ -28,42 +28,21 @@ function ResetPasswordForm() {
         setPass2(value);
     }
 
-    const requestSetPassword = () => {
-        return fetch(`${API_SERVER}/users/reset_password/${params.token}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              id: params.id,
-              password: pass1,
-            }),
-          })
-          .then((response) => (response.json()))
-          .then((data) => {
-            if (data.error) {
-              throw new Error("Not 2xx response", {cause: data});
-            }
-            return data;
-          });
+    const requestSetPassword = async () => {
+        return await setPassword(params.token, params.id, pass1);
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        requestSetPassword()
-        .then(() => {
+        try {
+            await requestSetPassword();
             dispatch(logoutAction());
             navigate(`/reset_password_successfull`);
-        })
-        .catch((error) => {
-            const message = (error.cause && error.cause.msg) ?
-                error.cause.msg : '';
-            console.log(message)
-            if (message === '') setErrorMsg('something goes wrong');
-            setErrorMsg(message);
+        } catch (err) {
+            setErrorMsg(err.message);
             setPass1('');
             setPass2('');
-        });
+        }
     }
 
     const isPassIdentical = () =>  {

@@ -2,8 +2,11 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
-import { changeNameAction } from '../../store/actions/auth';
-import { changePassword, changeEmail, getPremiumDate } from '../../services/auth.service';
+import Loader from '../loader/loader';
+
+import { changeNameAction, changeEmailAction } from '../../store/actions/auth';
+import { changePassword } from '../../services/auth.service';
+import { getPremiumDate } from '../../services/users.service';
 
 import Payment from '../payment/payment';
 
@@ -30,14 +33,17 @@ function ProfileComponent() {
         }
         const fetchData = async () => {
             if (level === 'premium') {
-                const res = await getPremiumDate(token);
-                if (res.status) {
-                    setPremium(res.premium_expired);
+                try {
+                    const res = await getPremiumDate(token);
+                    if (res.status) {
+                        setPremium(res.premium_expired);
+                    }
+                } catch (err) {
                 }
             }
         }
         fetchData();
-    })
+    }, [isLoggedIn, level, navigate, token]);
 
     const onChangeName = (e) => {
         setUserName(e.target.value);
@@ -58,7 +64,9 @@ function ProfileComponent() {
     const onSubmitEmail = async (e) => {
         e.preventDefault();
         if (isValidEmail(userEmail)) {
-            const res = await changeEmail(userEmail, token);
+            const res = await dispatch(changeEmailAction(
+                userEmail,
+                token));
             if (res.error) {
                 setEmailMsg({
                     style: 'error',
@@ -78,24 +86,22 @@ function ProfileComponent() {
         });
     }
 
-    const onSubmitName = (e) => {
+    const onSubmitName = async (e) => {
         e.preventDefault();
-        dispatch(changeNameAction(
-            userName,
-            token))
-            .then(() => {
-                setNameMsg({
-                    style: 'success',
-                    text: 'Name changed',
-                });
-            })
-            .catch((e) => {
-                console.error('something goes wrong...');
-                setNameMsg({
-                    style: 'error',
-                    text: 'Sorry, something went wrong',
-                });
+        try {
+            await dispatch(changeNameAction(
+                userName,
+                token));
+            setNameMsg({
+                style: 'success',
+                text: 'Name changed',
             });
+        } catch (err) {
+            setNameMsg({
+                style: 'error',
+                text: err.message,
+            });
+        }
     }
 
     const onSubmitPassword = async (e) => {
@@ -108,21 +114,22 @@ function ProfileComponent() {
                 });
                 return;
             }
-            const res = await changePassword(pass1, token);
-            if (res.error) {
+            try {
+                const res = await changePassword(pass1, token);
+                setPassMsg({
+                    style: 'success',
+                    text: res.msg,
+                });
+                setPass1('');
+                setPass2('');
+                return;
+            } catch (err) {
                 setPassMsg({
                     style: 'error',
-                    text: res.msg,
+                    text: err.message,
                 });
                 return;
             }
-            setPassMsg({
-                style: 'success',
-                text: res.msg,
-            });
-            setPass1('');
-            setPass2('');
-            return;
         }
         setPassMsg({
             style: 'error',
@@ -136,11 +143,20 @@ function ProfileComponent() {
     const nameDisabled = !userName ? true : false;
     const emailDisabled = !userEmail ? true : false;
 
-    const ExpiresOn = () => (
-        <h4 className="left-column-h">
-            Expires on - { }<span className={level !== 'basic' ? 'level-premium' : 'level-basic'}>{premium}</span>
-        </h4>
-    );
+    const ExpiresOn = () => {
+        if (premium) {
+            return (
+                <h4 className="left-column-h">
+                    Expires on - { }<span className={level !== 'basic' ? 'level-premium' : 'level-basic'}>{premium}</span>
+                </h4>
+            )
+        }
+        return (
+            <h4 className="left-column-h">
+                <Loader />
+            </h4>
+        )
+    };
 
     return (
         <>
@@ -151,7 +167,7 @@ function ProfileComponent() {
                     <h4 className="left-column-h">Account - <span className={level !== 'basic' ? 'level-premium' : 'level-basic'}>{level}</span></h4>
                     {level === 'premium' ? <ExpiresOn /> : null}
                 </div>
-
+               
                 <div className="profile-right">
                     <h2>Credentials</h2>
                     <hr />

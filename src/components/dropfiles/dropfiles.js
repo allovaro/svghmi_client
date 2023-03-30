@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import ReactGA from 'react-ga4';
 import { API_SERVER } from "../../config/constant";
 import Controls from "../controls/controls";
+import ConverterReport from "../converterReport/converterReport";
 
 import './dropfiles.css';
 
@@ -22,7 +23,6 @@ function Dropfiles(props) {
         const newFiles = files.filter((x) => x.id !== id);
         if (newFiles.length === 0) {
             onClear();
-            console.log('onClear event generated')
         }
         ReactGA.event({
             category: "Convertion",
@@ -42,18 +42,29 @@ function Dropfiles(props) {
         onUploaded();
     }
 
+    const report = {
+        addDefault: {status: 'Ok'},
+        addFlip: {status: 'Ok'},
+        polyToPath: {status: 'Ok', count: 77},
+        modify: {status: 'Ok', count: 11},
+        delTransform: {status: 'Ok', count: 15, removed: 9},
+        move: {status: 'Ok', count: 11},
+        spaceToComma: {status: 'Ok', count: 94},
+        connectColor: {status: 'Ok', ids: ['bgColor','secondColor']},
+    }
+
     return (
         <div className="dropfiles">
             <h3 className="dropfile-header">Upload your files here</h3>
             <Dropzone
                 accept=".svg"
-                label="Drop files here"
+                label="Drop your svg files here"
                 uploadOnDrop
                 onChange={updateFiles}
                 value={files}
                 maxFiles={level === 'premium' ? 100 : 1}
                 maxFileSize={level === 'premium' ? 2097152 : 102400}
-                url={`${API_SERVER}/convertor/upload-files/${id}`}
+                url={`${API_SERVER}/converter/upload-files/${id}`}
                 onUploadFinish={uploadFinished} >
                 {files.map((file) => (
                     <FileItem onDelete={onDelete} {...file} preview />
@@ -65,6 +76,7 @@ function Dropfiles(props) {
                 loader={props.loader}
                 uploaded={props.uploaded}
                 optimized={props.optimized} />
+            <ConverterReport report={report}/>
         </div>
     );
 }
