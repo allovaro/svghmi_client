@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import ReactGA from 'react-ga4';
+import { sendMetrics } from '../../services/ga.service';
 
 import PricingTable from '../pricingTable/pricingTable';
 import Loader from '../loader/loader';
@@ -51,7 +51,7 @@ function Payment(props) {
             setLoader(false);
             setReady(true);
             setLink(invoice.pay_url);
-            ReactGA.event({
+            sendMetrics({
                 category: "Payment",
                 action: "create invoice",
                 label: "invoice",

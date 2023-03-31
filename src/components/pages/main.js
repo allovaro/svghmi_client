@@ -5,6 +5,7 @@ import Navbar from '../navBar/navBar';
 import Footer from '../footer/footer';
 import AppInfo from '../app-info/app-info';
 import Dropfiles from '../dropfiles/dropfiles';
+import Dropzone from '../dropzone/dropzone';
 import SvghmiPreferences from '../svghmi-preferences/svghmi-preferences';
 import Payment from '../payment/payment';
 // import FaqComponent from '../faqComponent/faqComponent';
@@ -118,6 +119,7 @@ function Main(props) {
                 uploaded={uploaded}
                 optimized={optimized}
                 reports={reports} />
+            <Dropzone />
             <SvghmiPreferences
                 error={error}
                 config={optimizeConf}

@@ -11,8 +11,8 @@ const useGaTracker = () => {
     useEffect(() => {
         if (!window.location.href.includes('localhost')) {
             ReactGA.initialize(GA_ID);
+            setInitialized(true);
         }
-        setInitialized(true);
     }, []);
 
     useEffect(() => {

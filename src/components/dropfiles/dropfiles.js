@@ -1,6 +1,6 @@
 import { Dropzone, FileItem } from "@dropzone-ui/react";
 import { useSelector } from 'react-redux';
-import ReactGA from 'react-ga4';
+import { sendMetrics } from '../../services/ga.service';
 import { API_SERVER } from "../../config/constant";
 import Controls from "../controls/controls";
 import ConverterReport from "../converterReport/converterReport";
@@ -10,8 +10,6 @@ import {
     MAX_PREMIUM_CONVERT_FILES,
     FREE_FILE_SIZE,
     PREMIUM_FILE_SIZE } from "../../config/constant";
-
-
 
 import './dropfiles.css';
 
@@ -32,7 +30,7 @@ function Dropfiles(props) {
         if (newFiles.length === 0) {
             onClear();
         }
-        ReactGA.event({
+        sendMetrics({
             category: "Convertion",
             action: "delete svg files",
             label: "delete",
@@ -41,7 +39,7 @@ function Dropfiles(props) {
     };
 
     const uploadFinished = (files) => {
-        ReactGA.event({
+        sendMetrics({
             category: "Convertion",
             action: "upload svg files",
             label: "upload",
@@ -49,17 +47,6 @@ function Dropfiles(props) {
         });
         onUploaded();
     }
-
-    // const report = {
-    //     addDefault: {status: 'Ok'},
-    //     addFlip: {status: 'Ok'},
-    //     polyToPath: {status: 'Ok', count: 77},
-    //     modify: {status: 'Ok', count: 11},
-    //     delTransform: {status: 'Ok', count: 15, removed: 9},
-    //     move: {status: 'Ok', count: 11},
-    //     spaceToComma: {status: 'Ok', count: 94},
-    //     connectColor: {status: 'Ok', ids: ['bgColor','secondColor']},
-    // }
 
     return (
         <div className="dropfiles">
@@ -85,8 +72,17 @@ function Dropfiles(props) {
                 uploaded={props.uploaded}
                 optimized={props.optimized} />
                 {reports.map((report, ind) => {
+                    if (!report.status) {
+                        return (
+                            <ConverterReport
+                                report={{}}
+                                text={`Critical Error while proccessing ${report.name}.svg`}
+                                show={false}
+                                disabled={true}
+                        />)
+                    }
                     return (
-                        <ConverterReport report={report.reports} name={report.name} show={ind === 0}
+                        <ConverterReport report={report.reports} text={`Report ${report.name}.svg`} show={ind === 0}
                     />)
 }               )}
         </div>

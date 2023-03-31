@@ -1,7 +1,7 @@
 import { Component, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
-import ReactGA from 'react-ga4';
+import { sendMetrics } from '../../services/ga.service';
 import { registerAction, loginAction } from '../../store/actions/auth';
 import './loginComponent.css';
 
@@ -66,15 +66,15 @@ function LoginForm(props) {
                     login.fullname,
                     login.email_signup,
                     login.createpassword));
-                ReactGA.event('sign_up', { method: 'svghmi' });
+                sendMetrics('sign_up', { method: 'svghmi' });
                 navigate(`/email_sent`);
             } catch (err) {
-                ReactGA.event('sign_up_error', { method: 'svghmi' });
+                sendMetrics('sign_up_error', { method: 'svghmi' });
             }
         } else {
             try {
                 await dispatch(loginAction(login.email, login.password));
-                ReactGA.event('login', { method: 'svghmi' });
+                sendMetrics('login', { method: 'svghmi' });
                 navigate('/');
             } catch (err) {
                 setLogin({...login, 

@@ -1,4 +1,4 @@
-import ReactGA from 'react-ga4';
+import { sendMetrics } from '../../services/ga.service';
 
 import './checkBoxItem.css';
 
@@ -6,12 +6,12 @@ const CheckBoxItem = (props) => {
     const { checked, onClick, id, section, label } = props;
 
     const onCheck = () => {
-        ReactGA.event({
+        sendMetrics({
             category: 'Options',
             action: `toggle ${id}`,
             label: 'toggle option',
             value: !checked ? 1 : 0,
-        });
+        })
         onClick(section, id, !checked);
     }
 

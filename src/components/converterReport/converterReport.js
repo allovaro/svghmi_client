@@ -10,7 +10,7 @@ const ConverterReport = (props) => {
         polyToPath,
         connectColor,
         addFlip } = props.report;
-    const { name } = props;
+    const { text, disabled } = props;
 
     const [show, setShow] = useState(props.show);
 
@@ -75,9 +75,10 @@ const ConverterReport = (props) => {
         <div className="report-block">
             <button 
                 type="button"
+                disabled={disabled}
                 className="trigger"
                 onClick={onshow}>
-                    {`Report (${name}.svg)`}
+                    {text}
             </button>
             {show ? <Content /> : null}
         </div>

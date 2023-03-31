@@ -1,4 +1,4 @@
-import ReactGA from 'react-ga4';
+import { sendMetrics } from '../../services/ga.service';
 import { API_SERVER } from "../../config/constant";
 
 import './controls.css';
@@ -22,14 +22,14 @@ const Controls = (props) => {
     const onClick = async () => {
         if (uploaded && !optimized) {
             onOptimize();
-            ReactGA.event({
+            sendMetrics({
                 category: "Convertion",
                 action: "optimize svg files",
                 label: "optimize",
             });
         } else if (optimized) {
             onDownload();
-            ReactGA.event({
+            sendMetrics({
                 category: "Convertion",
                 action: "download svghmi.zip",
                 label: "download",

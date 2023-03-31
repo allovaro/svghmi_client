@@ -55,14 +55,16 @@
     align-items: center;
     padding: 0.1rem;
     min-height: 20px;
-    border: 2px solid #3ecf8e;
-    border-radius: 3px;
+    border: 2px solid #8d8d8d;
+    border-radius: 5px;
     background-color: transparent;
     color: #212121;
 }
 
-.trigger:focus {
-    border: 2px solid rgb(11, 14, 192);
-    outline: 0;
+.trigger:disabled {
+    border: 2px solid #df0a0a;
 }
 
+.trigger:hover {
+    border: 2px solid #109fff;
+}

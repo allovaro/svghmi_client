@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import ReactGA from 'react-ga4';
+import { sendMetrics } from '../../services/ga.service';
 
 import './examplesComponent.css';
 
