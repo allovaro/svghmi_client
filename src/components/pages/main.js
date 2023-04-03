@@ -1,24 +1,30 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
+// Components
 import Navbar from '../navBar/navBar';
+import Header from '../header/header';
 import Footer from '../footer/footer';
 import AppInfo from '../app-info/app-info';
-import Dropfiles from '../dropfiles/dropfiles';
+import Card from '../card/card';
 import Dropzone from '../dropzone/dropzone';
+import Controls from '../controls/controls';
+import ConverterReport from '../converterReport/converterReport';
 import SvghmiPreferences from '../svghmi-preferences/svghmi-preferences';
 import Payment from '../payment/payment';
-// import FaqComponent from '../faqComponent/faqComponent';
-
+import FaqComponent from '../faqComponent/faqComponent';
+// Services
 import { optimize } from '../../services/converter.service';
+// Constants
 import { CONFIG_DEFAULT } from './../../config/constant';
 
-import '../app/baner.css';
 
-function Main(props) {
-    const [clientId, setClientId] = useState(uuidv4().split('-').join(''));
+const revokeId = () => uuidv4().split('-').join('');
+
+function Main() {
+    const [clientId, setClientId] = useState(revokeId());
+    const [optimizeId, setOptimizeId] = useState('');
     const [downloadId, setDownloadId] = useState('');
-    const [files, setFiles] = useState([]);
     const [optimizeConf, setOptimizeConf] = useState(CONFIG_DEFAULT);
     const [optimized, setOptimized] = useState(false);
     const [uploaded, setUploaded] = useState(false);
@@ -28,8 +34,7 @@ function Main(props) {
  
     const { user_id } = useSelector(state => state.auth);
 
-    const optimizeFiles = async (conf) => {
-        setFiles([]);
+    const onOptimize = async (conf) => {
         setLoader(true);
         const ids = optimizeConf.optimization.bgColorId.filter((elem) => elem !== '');
         optimizeConf.optimization.bgColorId = ids;
@@ -38,25 +43,29 @@ function Main(props) {
         }
 
         try {
-            const data = await optimize(clientId, optimizeConf, user_id);
+            // send optimize api request to server
+            const data = await optimize(optimizeId, optimizeConf, user_id);
             if (data.status) {
                 setReports(data.payload);
             }
             setOptimized(true);
-            setUploaded(false);
-            setDownloadId(clientId);
-            setClientId(uuidv4().split('-').join(''));
-            setLoader(false);
             setError(false);
         } catch (err) {
             console.error(err)
             setOptimized(false);
-            setUploaded(false);
-            setDownloadId(clientId);
-            setClientId(uuidv4().split('-').join(''));
-            setLoader(false);
             setError(true);
         }
+        setUploaded(false);
+        setDownloadId(optimizeId);
+        setClientId(revokeId());
+        setLoader(false);
+    }
+
+    const onUploaded = () => {
+        setOptimized(false);
+        setUploaded(true);
+        setOptimizeId(clientId);
+        setClientId(revokeId());
     }
 
     const onConfigChanged = (section, id, value) => {
@@ -101,31 +110,26 @@ function Main(props) {
     return (
         <>
             <Navbar />
-            <header className="color-full clear-fix">
-                <div className="text_color_full block3">
-                    SVG to <span className='svghmi'>SVGHMI</span>
-                </div>
-            </header>
+            <Header />
             <AppInfo />
-            <Dropfiles
-                files={files}
-                setFiles={setFiles}
-                onUploaded={() => { setOptimized(false); setUploaded(true);}}
-                onClear={() => { setOptimized(false); setUploaded(false); setReports([])}}
-                id={clientId}
-                onOptimize={optimizeFiles}
-                downloadId={downloadId}
-                loader={loader}
-                uploaded={uploaded}
-                optimized={optimized}
-                reports={reports} />
-            <Dropzone />
+            <Card>
+                <Dropzone 
+                    onUploaded={onUploaded}
+                    id={clientId}/>
+                <Controls
+                    onOptimize={onOptimize}
+                    downloadId={downloadId}
+                    loader={loader}
+                    uploaded={uploaded}
+                    optimized={optimized} />
+                <ConverterReport reports={reports}/>
+            </Card>
             <SvghmiPreferences
                 error={error}
                 config={optimizeConf}
                 onConfigChanged={onConfigChanged} />
             <Payment />
-            {/* <FaqComponent /> */}
+            <FaqComponent />
             <Footer />
         </>
     );

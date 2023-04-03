@@ -1,13 +1,16 @@
-import { useEffect, useState, useMemo } from 'react';
+// Libraries
+import { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
+// App services
+import { uploadFiles } from '../../services/converter.service';
+import { sendMetrics } from '../../services/ga.service';
 
 import {
     MAX_FREE_CONVERT_FILES,
     MAX_PREMIUM_CONVERT_FILES,
     FREE_FILE_SIZE,
-    PREMIUM_FILE_SIZE,
-    API_SERVER } from "../../config/constant";
+    PREMIUM_FILE_SIZE } from "../../config/constant";
 
 import './dropzone.css';
 
@@ -16,7 +19,7 @@ const baseStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: '20px',
+    padding: '60px',
     borderWidth: 2,
     borderRadius: 2,
     borderColor: '#eeeeee',
@@ -72,12 +75,36 @@ const img = {
 
 
 export default function Dropzone(props) {
+    const { id, onUploaded } = props;
     const { level } = useSelector(state => state.auth);
     const [files, setFiles] = useState([]);
 
-    const isFree = level === 'premium';
+    const isFree = level !== 'premium';
     const maxSize = isFree ? FREE_FILE_SIZE : PREMIUM_FILE_SIZE;
     const maxFiles = isFree ? MAX_FREE_CONVERT_FILES : MAX_PREMIUM_CONVERT_FILES;
+
+    const onDrop = (acceptedFiles) => {
+        const asyncRoutine = async (acceptedFiles) => {
+            files.forEach(file => URL.revokeObjectURL(file.preview));
+            acceptedFiles.forEach(file => {
+                setFiles(acceptedFiles.map(file => Object.assign(file, {
+                    preview: URL.createObjectURL(file)})));
+            });
+            try {
+                await uploadFiles(id, acceptedFiles);
+                sendMetrics({
+                    category: "Convertion",
+                    action: "upload svg files",
+                    label: "upload",
+                    value: acceptedFiles.length,
+                });
+                onUploaded();
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        asyncRoutine(acceptedFiles);
+    }
 
     const {
         getRootProps,
@@ -90,33 +117,15 @@ export default function Dropzone(props) {
         isDragActive,
     } = useDropzone({
         accept: {'image/svg+xml': []},
-        onDrop: acceptedFiles => {
-            const data = new FormData();
-            acceptedFiles.forEach((file, i) => {
-                data.append(`file-${i}`, file, file.name);
-            });
-            fetch(`${API_SERVER}/converter/upload-files/234`, {
-                method: 'POST',
-                body: data,
-                })
-                .then((res) => res.json())
-                .then((data) => console.log(data))
-            acceptedFiles.forEach(file => {
-
-                setFiles(acceptedFiles.map(file => Object.assign(file, {
-                preview: URL.createObjectURL(file)
-            })));
-        });
-            
-        },
+        onDrop,
         noClick: true,
         noKeyboard: true,
-        maxFiles: 1,
+        maxFiles,
         maxSize,
     });
 
     const isFileTooLarge = fileRejections.length > 0 && fileRejections[0].file.size > maxSize;
-    const isFilesMaxCount = fileRejections.length > 0 && maxFiles;
+    const isFilesMaxCount = fileRejections.length > maxFiles;
     const fileRejectionItems = fileRejections.map(({ file, errors  }) => {
         return (
           <li className='rejected-files' key={file.path}>
@@ -153,32 +162,28 @@ export default function Dropzone(props) {
         </div>
     ));
 
-  useEffect(() => {
-    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
-    return () => files.forEach(file => URL.revokeObjectURL(file.preview));
-  }, [files]);
-
-  return (
-    <div className='dropfiles'>
-        <section className="dropfiles-wrapper">
-        <div {...getRootProps({style})}>
-            <input {...getInputProps()} />
-            { !isDragActive && <><p>Drag 'n' drop some files here</p>
-                <em>(only *.svg images will be accepted)</em></>}
-            { isDragActive && !isDragReject && <p>Drop it like it's hot!</p> }
-            { isDragReject && <p>File type not accepted, sorry :(</p>}
-            { isFileTooLarge && <p className='rejected-message'>File is too large! Sorry, only premium users can convert large files</p> }
-            <button className='button_chooser' type="button" onClick={open}>
-                Choose File
-            </button>
-        </div>
-        <aside style={thumbsContainer}>
-            {thumbs}
-            <ul>{fileRejectionItems}</ul>
-        </aside>
-        </section>
-    </div>
-  );
+    return (
+        <>
+            <section className="dropfiles-wrapper">
+            <div {...getRootProps({style})}>
+                <input {...getInputProps()} />
+                { !isDragActive && <><p>Drag 'n' drop some files here</p>
+                    <em>(only *.svg images will be accepted)</em></>}
+                { isDragActive && !isDragReject && <p>Drop it like it's hot!</p> }
+                { isDragReject && <p>File type not accepted, sorry :(</p>}
+                { isFileTooLarge && <p className='rejected-message'>File is too large! Sorry, only premium users can convert large files</p> }
+                { isFilesMaxCount && <p className='rejected-message'>Too much files! Sorry, only premium users can do batch convertion </p> }
+                <button className='button_chooser' type="button" onClick={open}>
+                    Choose File
+                </button>
+            </div>
+            <aside style={thumbsContainer}>
+                {thumbs}
+                <ul>{fileRejectionItems}</ul>
+            </aside>
+            </section>
+        </>
+    );
 }
 
 <Dropzone />

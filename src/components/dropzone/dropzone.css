@@ -1,12 +1,18 @@
-.dropfiles {
+.dropfiles-wrapper {
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 15px 15px 30px rgba(0,0,0, .15);
+    background-color:rgba(255,255,255);
+    text-align: center;
+}
+/* .dropfiles {
     margin-top: 10px;
     padding: 25px;
     background-color: #3d5a80;
     border-radius: 4px;
     box-shadow: 15px 15px 30px rgba(0,0,0, .15);
     color: #fff;
-    text-align: center;
-}
+} */
 
 .rejected-files {
     color: #000;
@@ -14,4 +20,17 @@
 
 .rejected-message {
     color: red;
+}
+
+.button_chooser {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.button_chooser:hover {
+    background-color: rgb(212, 212, 212);
+    border: 1px solid rgb(87, 87, 87);
 }

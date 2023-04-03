@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { sendMetrics } from '../../services/ga.service';
 import { API_SERVER } from "../../config/constant";
 import Controls from "../controls/controls";
-import ConverterReport from "../converterReport/converterReport";
+import ConverterReport from "../converterReportItem/converterReportItem";
 
 import {
     MAX_FREE_CONVERT_FILES,
@@ -84,7 +84,7 @@ function Dropfiles(props) {
                     return (
                         <ConverterReport report={report.reports} text={`Report ${report.name}.svg`} show={ind === 0}
                     />)
-}               )}
+                })}
         </div>
     );
 }
