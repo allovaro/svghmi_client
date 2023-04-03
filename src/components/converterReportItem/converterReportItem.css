@@ -1,70 +1,72 @@
 .report-block {
-    background-color:rgb(255, 255, 255);
-    margin: auto;
-    width: 45%;
-    font-size: 0.9rem;
-    color:black;
-    text-align: left;
-    border-radius: 5px;
-    align-items: center;
-    min-width: 80px;
+  background-color: rgb(255, 255, 255);
+  margin: auto;
+  width: 45%;
+  font-size: 0.9rem;
+  color: black;
+  text-align: left;
+  border-radius: 5px;
+  align-items: center;
+  min-width: 80px;
 }
 
 .report-block h5 {
-    padding-top: 0.6rem;
-    text-align: center;
+  padding-top: 0.6rem;
+  text-align: center;
 }
 
 .report-list {
-    list-style: none;
-    padding: 0.2em 1.2em;
+  list-style: none;
+  padding: 0.2em 1.2em;
 }
 
 .report-list li {
-    position: relative;
-    list-style-type: none;
-    padding-left: 1.3rem;
-    margin-bottom: 0.2rem;
+  position: relative;
+  list-style-type: none;
+  padding-left: 1.3rem;
+  margin-bottom: 0.2rem;
 }
 
 .report-list .cross-list-element:before {
-    content: '\2716';  /* Cross */
-    color: red;
+  content: '\2716';
+  /* Cross */
+  color: red;
 }
 
 .report-list .tick-list-element:before {
-    content: '\2713';  /* Tick */
-    color:rgb(41, 245, 20);
+  content: '\2713';
+  /* Tick */
+  color: rgb(41, 245, 20);
 }
 
 .report-list li:before {
-    position: absolute;
-    left: 0;
-    width: 2em;
-    height: 2em;
+  position: absolute;
+  left: 0;
+  width: 2em;
+  height: 2em;
 }
 
 .info-block {
-    float: right;
-    font-style: italic;
+  float: right;
+  font-style: italic;
 }
 
 .trigger {
-    width: 100%;
-    font-size: 1em;
-    align-items: center;
-    padding: 0.1rem;
-    min-height: 20px;
-    border: 2px solid #8d8d8d;
-    border-radius: 5px;
-    background-color: transparent;
-    color: #212121;
+  width: 100%;
+  font-size: 1em;
+  align-items: center;
+  padding: 0.1rem;
+  min-height: 20px;
+  border: 2px solid #8d8d8d;
+  border-radius: 5px;
+  background-color: transparent;
+  color: #212121;
 }
 
 .trigger:disabled {
-    border: 2px solid #df0a0a;
+  border: 2px solid #df0a0a;
 }
 
 .trigger:hover {
-    border: 2px solid #109fff;
+  border: 2px solid #109fff;
 }

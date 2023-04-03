@@ -1,69 +1,72 @@
 .btnCtrl {
-    display: inline-block;
-    background-color: #48a9c5;
-    border-radius: 10px;
-    border: 4px double #cccccc;
-    color: #eeeeee;
-    text-align: center;
-    font-size: 21px;
-    padding: 10px;
-    width: 220px;
-    transition: all 0.5s;
-    cursor: pointer;
-    margin: 5px;
-  }
-.btnCtrl .btnText {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
+  display: inline-block;
+  background-color: #48a9c5;
+  border-radius: 10px;
+  border: 4px double #cccccc;
+  color: #eeeeee;
+  text-align: center;
+  font-size: 21px;
+  padding: 10px;
+  width: 220px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
 }
+
+.btnCtrl .btnText {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
 .btnCtrl .btnText:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
 }
 
 .btnCtrl:hover {
-    background-color: #3d5aFF;
+  background-color: #3d5aFF;
 }
 
 .btnCtrl:hover .btnText {
-    padding-right: 25px;
+  padding-right: 25px;
 }
 
 .btnCtrl:hover .btnText:after {
-    opacity: 1;
-    right: 0;
+  opacity: 1;
+  right: 0;
 }
 
 .btnDisabled {
-    background-color: #777;
+  background-color: #777;
 }
 
 .btnDisabled:hover {
-    background-color: #777;
+  background-color: #777;
 }
 
 .loader {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    display: inline-block;
-    border-top: 3px solid #FFF;
-    border-right: 3px solid transparent;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 3px solid #FFF;
+  border-right: 3px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
 }
-  
+
 @keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-} 
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

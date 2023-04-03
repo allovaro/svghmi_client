@@ -1,9 +1,12 @@
 import './card.css';
 
-const Card = (props) => (
-    <div className='card-wrapper'>
-        {props.children}
+function Card(props) {
+  const { children } = props;
+  return (
+    <div className="card-wrapper">
+      { children }
     </div>
-)
+  );
+}
 
 export default Card;

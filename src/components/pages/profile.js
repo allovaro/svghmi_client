@@ -3,14 +3,13 @@ import ProfileComponent from '../profileComponent/profileComponent';
 import Footer from '../footer/footer';
 
 function ProfilePage() {
-    
-    return (
-        <>
-            <Navbar />
-            <ProfileComponent />
-            <Footer />
-        </>
-    )
+  return (
+    <>
+      <Navbar />
+      <ProfileComponent />
+      <Footer />
+    </>
+  );
 }
 
 export default ProfilePage;

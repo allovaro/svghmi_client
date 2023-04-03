@@ -1,11 +1,12 @@
 import LoginComponent from '../loginComponent/loginComponent';
 
-const Login = (props) => {
-    return (
-        <LoginComponent
-            mode={props.mode}
-        />
-    )
+function Login(props) {
+  const { mode } = props;
+  return (
+    <LoginComponent
+      mode={mode}
+    />
+  );
 }
 
 export default Login;

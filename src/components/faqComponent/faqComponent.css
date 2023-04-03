@@ -1,61 +1,61 @@
 .examples-background {
-    background: #3d5a80;
-    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
-    box-sizing: border-box;
-    border-radius: 4px;
-    width: 100%;
-    text-align: left;
-    font: bold 16px sans-serif;
-    padding: 20px 50px 50px;
-    /* margin-top: 10px; */
-    margin-bottom: 10px;
+  background: #3d5a80;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  border-radius: 4px;
+  width: 100%;
+  text-align: left;
+  font: bold 16px sans-serif;
+  padding: 20px 50px 50px;
+  /* margin-top: 10px; */
+  margin-bottom: 10px;
 }
 
 .examples-background h3 {
-    /* color: #fff;
+  /* color: #fff;
     text-align: center; */
 
-    font-size: 1.5em;
-    margin: 10px auto;
-    font-weight: bold;
-    color: #fff;
-    text-align: center;
+  font-size: 1.5em;
+  margin: 10px auto;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
 }
 
 details {
-    background-color: #303030;
-    color: #fff;
-    margin-top: 5px;
-    /* font-size: 1.5rem; */
+  background-color: #303030;
+  color: #fff;
+  margin-top: 5px;
+  /* font-size: 1.5rem; */
 }
 
 summary {
-    padding: .5em 1.3rem;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    transition: height 1s ease;
+  padding: .5em 1.3rem;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  transition: height 1s ease;
 }
 
 summary::-webkit-details-marker {
-    display: none;
+  display: none;
 }
 
 summary:after {
-    content: "\002B";
+  content: "\002B";
 }
 
 details[open] summary {
-    border-bottom: 1px solid #aaa;
-    /* margin-bottom: .5em; */
+  border-bottom: 1px solid #aaa;
+  /* margin-bottom: .5em; */
 }
 
 details[open] summary:after {
-    content: "\00D7";
+  content: "\00D7";
 }
 
 details[open] div {
-    padding: .5em 1em;
-    color: rgb(26, 22, 22);
-    background-color: rgb(209, 209, 209);
+  padding: .5em 1em;
+  color: rgb(26, 22, 22);
+  background-color: rgb(209, 209, 209);
 }

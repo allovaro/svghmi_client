@@ -5,21 +5,21 @@ import ReactGA from 'react-ga4';
 import { GA_ID } from '../config/constant';
 
 const useGaTracker = () => {
-    const location = useLocation();
-    const [initialized, setInitialized] = useState(false);
+  const location = useLocation();
+  const [initialized, setInitialized] = useState(false);
 
-    useEffect(() => {
-        if (!window.location.href.includes('localhost')) {
-            ReactGA.initialize(GA_ID);
-            setInitialized(true);
-        }
-    }, []);
+  useEffect(() => {
+    if (!window.location.href.includes('localhost')) {
+      ReactGA.initialize(GA_ID);
+      setInitialized(true);
+    }
+  }, []);
 
-    useEffect(() => {
-        if (initialized) {
-            ReactGA.pageview(location.pathname + location.search);
-        }
-    }, [initialized, location]);
-}
+  useEffect(() => {
+    if (initialized) {
+      ReactGA.pageview(location.pathname + location.search);
+    }
+  }, [initialized, location]);
+};
 
 export default useGaTracker;
