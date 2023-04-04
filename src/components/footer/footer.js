@@ -34,7 +34,9 @@ function Footer() {
       <div className="footer-right">
         <p className="footer-company-about">
           <span>About the project</span>
-          The service is intended for engineers who want to make beautiful and dynamic Siemens WinCC Unified visualizations without spending a lot of time on it.
+          The service is intended for engineers who want
+          to make beautiful and dynamic Siemens WinCC Unified
+          visualizations without spending a lot of time on it.
         </p>
         <div className="footer-icons">
           <a

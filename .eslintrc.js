@@ -32,5 +32,10 @@ module.exports = {
     'no-promise-executor-return': 'off',
     'no-return-await': 'off',
     'react/prop-types': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'react/no-unstable-nested-components': 'off',
+    'react/function-component-definition': [2, {
+      namedComponents: 'function-declaration' || 'arrow-function' || 'function-expression',
+    }],
   },
 };
