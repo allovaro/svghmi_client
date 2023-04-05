@@ -13,7 +13,7 @@ import Controls from '../controls/controls';
 import ConverterReport from '../converterReport/converterReport';
 import SvghmiPreferences from '../svghmi-preferences/svghmi-preferences';
 import Payment from '../payment/payment';
-import FaqComponent from '../faqComponent/faqComponent';
+// import FaqComponent from '../faqComponent/faqComponent';
 // Services
 import { optimize } from '../../services/converter.service';
 // Constants
@@ -132,7 +132,7 @@ function Main() {
         onConfigChanged={onConfigChanged}
       />
       <Payment />
-      <FaqComponent />
+      {/* <FaqComponent /> */}
       <Footer />
     </>
   );
