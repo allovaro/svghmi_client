@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
-// App services
+// Services
 import { uploadFiles } from '../../services/converter.service';
 import { sendMetrics } from '../../services/ga.service';
 

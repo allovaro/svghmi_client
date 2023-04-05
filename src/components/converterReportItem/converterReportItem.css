@@ -11,8 +11,17 @@
 }
 
 .report-block h5 {
-  padding-top: 0.6rem;
+  padding-top: 0.2rem;
   text-align: center;
+}
+
+.report-title {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.report-name-grey {
+  color: grey;
 }
 
 .report-list {

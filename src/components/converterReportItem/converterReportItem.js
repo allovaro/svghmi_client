@@ -1,8 +1,55 @@
-/* eslint-disable react/no-unstable-nested-components */
 import { useState } from 'react';
+
 import './converterReportItem.css';
 
-function ConverterReportItem(props) {
+function ReportTitle(props) {
+  const { error, name } = props;
+  return error ? (
+    <p className="report-title">
+      Critical Error while proccessing
+      {' '}
+      <span className="report-name-grey">
+        <em>
+          {name}
+          .svg
+        </em>
+      </span>
+    </p>
+  ) : (
+    <p className="report-title">
+      Report for
+      {' '}
+      <span className="report-name-grey">
+        <em>
+          {name}
+          .svg
+        </em>
+      </span>
+    </p>
+  );
+}
+
+function ListItem({ value, children }) {
+  if (value) {
+    return (
+      <li
+        key="children"
+        className={
+          value.status === 'Ok' ? 'tick-list-element' : 'cross-list-element'
+        }
+      >
+        {children}
+      </li>
+    );
+  }
+  return null;
+}
+
+const RightElement = ({ value }) => (<span className="info-block">{value}</span>);
+
+function ConverterReportItem({
+  report, name, disabled, show,
+}) {
   const {
     addDefault,
     move,
@@ -12,67 +59,48 @@ function ConverterReportItem(props) {
     polyToPath,
     connectColor,
     addFlip,
-  // eslint-disable-next-line react/destructuring-assignment
-  } = props.report;
-  const { text, disabled, show } = props;
+  } = report;
 
   const [showItem, setShowItem] = useState(show);
 
   function Content() {
-    function RightEl({ value }) {
-      return <span className="info-block">{value}</span>;
-    }
-
-    function ListItem({ value, children }) {
-      if (value) {
-        return (
-          <li
-            key="children"
-            className={
-              value.status === 'Ok' ? 'tick-list-element' : 'cross-list-element'
-            }
-          >
-            {children}
-          </li>
-        );
-      }
-      return null;
-    }
     return (
       <ul className="report-list">
         <ListItem value={addDefault}>
           Add default values
-          <RightEl value={addDefault ? addDefault.status : ''} />
+          <RightElement value={addDefault ? addDefault.status : ''} />
         </ListItem>
         <ListItem value={addFlip}>
           Add Flip interface
-          <RightEl value={addFlip ? addFlip.status : ''} />
+          <RightElement value={addFlip ? addFlip.status : ''} />
         </ListItem>
         <ListItem value={polyToPath}>
           Poly to Path
-          <RightEl value={`${polyToPath ? polyToPath.count : ''} modified`} />
+          <RightElement value={`${polyToPath ? polyToPath.count : ''} modified`} />
         </ListItem>
         <ListItem value={modify}>
           Deleted href in Gradients
-          <RightEl value={`${modify ? modify.counter : ''} modified`} />
+          <RightElement value={`${modify ? modify.counter : ''} modified`} />
         </ListItem>
         <ListItem value={delTransform}>
           Deleted transforms from Gradients
-          <RightEl value={`${delTransform ? delTransform.count : ''}
+          <RightElement value={`${delTransform ? delTransform.count : ''}
                 of ${delTransform ? delTransform.removed : ''}`}
           />
         </ListItem>
         <ListItem value={move}>
           Gradients moved to defs section
-          <RightEl value={`${move ? move.counter : ''} moved`} />
+          <RightElement value={`${move ? move.counter : ''} moved`} />
         </ListItem>
         <ListItem value={spaceToComma}>
           Space to Comma
-          <RightEl value={`${spaceToComma ? spaceToComma.count : ''} modified`} />
+          <RightElement value={`${spaceToComma ? spaceToComma.count : ''} modified`} />
         </ListItem>
         <ListItem value={connectColor}>
           Connected Colors by id
-          <RightEl value={`${connectColor && connectColor.length ? connectColor.ids.toString() : 'not found'}`} />
+          <RightElement value={`${connectColor && connectColor.status === 'Ok'
+            ? connectColor.ids.toString() : 'not found'}`}
+          />
         </ListItem>
       </ul>
     );
@@ -92,7 +120,7 @@ function ConverterReportItem(props) {
         className="trigger"
         onClick={onshow}
       >
-        {text}
+        <ReportTitle error={disabled} name={name} />
       </button>
       {showItem ? <Content /> : null}
     </div>

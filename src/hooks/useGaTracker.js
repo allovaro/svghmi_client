@@ -10,7 +10,9 @@ const useGaTracker = () => {
 
   useEffect(() => {
     if (!window.location.href.includes('localhost')) {
-      ReactGA.initialize(GA_ID);
+      ReactGA.initialize(GA_ID, {
+        gtagOptions: { cookie_flags: 'SameSite=None;Secure' },
+      });
       setInitialized(true);
     }
   }, []);

@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import { HashRouter } from 'react-router-dom';
-import App from './components/app/app';
+import { HashRouter as Router } from 'react-router-dom';
 // import { BrowserRouter as Router } from 'react-router-dom';
+import App from './components/app/app';
 import { BASE_TITLE } from './config/constant';
 import './index.css';
 import { store } from './store';
@@ -13,9 +13,9 @@ document.title = `${BASE_TITLE} | Tool for creating dynamic WinCC Unified widget
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <HashRouter>
+      <Router>
         <App />
-      </HashRouter>
+      </Router>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'),

@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { sendMetrics } from '../../services/ga.service';
 
 import PricingTable from '../pricingTable/pricingTable';
@@ -109,12 +109,15 @@ function Payment() {
           want more options and convenience? Try premium access.
           You will have access to batch file
           conversion of up to
+          {' '}
           <span className="payment-promo-highlight">100 files </span>
           at a time and the maximum size of one file will be increased
           up to
+          {' '}
           <span className="payment-promo-highlight">2 Mb</span>
           .
           You can easily
+          {' '}
           <span className="payment-promo-highlight">pay with crypto </span>
           or if you do not have it, directly by card.
 

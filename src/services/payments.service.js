@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import {
   API_SERVER, API_CRYPTOCLOUD, AUTH_CRYPTOCLOUD, SHOP_ID,
 } from '../config/constant';

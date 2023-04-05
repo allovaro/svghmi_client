@@ -40,49 +40,49 @@ function SvghmiPreferences(props) {
               id="addDefaults"
               label="Add default values into Gradients"
               section="optimization"
-              checked={config.optimization.addDefaults}
+              checked={!!config.optimization.addDefaults}
               onClick={onConfigChanged}
             />
             <CheckBoxItem
               id="pretify"
               label="Pretify svg"
               section="optimization"
-              checked={config.optimization.pretify}
+              checked={!!config.optimization.pretify}
               onClick={onConfigChanged}
             />
             <CheckBoxItem
               id="delGradientTransform"
               label="Remove <gradientTransform> attribute and recalculate x(cx), y(cy)"
               section="optimization"
-              checked={config.optimization.delGradientTransform}
+              checked={!!config.optimization.delGradientTransform}
               onClick={onConfigChanged}
             />
             <CheckBoxItem
               id="spaceToComma"
               label="Change whitespaces to comma delimiter in gradientTransform attributes"
               section="optimization"
-              checked={config.optimization.spaceToComma}
+              checked={!!config.optimization.spaceToComma}
               onClick={onConfigChanged}
             />
             <CheckBoxItem
               id="delRefs"
               label="Delete href and xlink:href in gradients"
               section="optimization"
-              checked={config.optimization.delRefs}
+              checked={!!config.optimization.delRefs}
               onClick={onConfigChanged}
             />
             <CheckBoxItem
               id="moveGradients"
               label="Move gradients to <defs/>"
               section="optimization"
-              checked={config.optimization.moveGradients}
+              checked={!!config.optimization.moveGradients}
               onClick={onConfigChanged}
             />
             <CheckBoxItem
               id="addFlipInterface"
               label="Add Flip interface into SVGHMI"
               section="optimization"
-              checked={config.optimization.addFlipInterface}
+              checked={!!config.optimization.addFlipInterface}
               onClick={onConfigChanged}
             />
             <CheckBoxItem
@@ -96,7 +96,7 @@ function SvghmiPreferences(props) {
               id="polyToPath"
               label="Poly to Path"
               section="optimization"
-              checked={config.optimization.polyToPath}
+              checked={!!config.optimization.polyToPath}
               onClick={onConfigChanged}
             />
             <CheckBoxItem
@@ -117,7 +117,7 @@ function SvghmiPreferences(props) {
               id="connectBgColor"
               label="Attach bgColorXX to BasicColor interface property"
               section="optimization"
-              checked={config.optimization.connectBgColor}
+              checked={!!config.optimization.connectBgColor}
               onClick={onConfigChanged}
             />
             {ShowColorControl}

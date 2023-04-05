@@ -1,14 +1,13 @@
 import ConverterReportItem from '../converterReportItem/converterReportItem';
 
-function ConverterReport(props) {
-  const { reports } = props;
+function ConverterReport({ reports }) {
   const reportsComponent = reports.map((report, ind) => {
     if (!report.status) {
       return (
         <ConverterReportItem
           key={report.name}
           report={{}}
-          text={`Critical Error while proccessing ${report.name}.svg`}
+          name={report.name}
           show={false}
           disabled
         />
@@ -18,17 +17,12 @@ function ConverterReport(props) {
       <ConverterReportItem
         key={report.name}
         report={report.reports}
-        text={`Report ${report.name}.svg`}
+        name={report.name}
         show={ind === 0}
       />
     );
   });
-  return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    <>
-      { reportsComponent }
-    </>
-  );
+  return reportsComponent;
 }
 
 export default ConverterReport;

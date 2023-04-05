@@ -1,3 +1,5 @@
+/* eslint-disable default-param-last */
+/* eslint-disable camelcase */
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
