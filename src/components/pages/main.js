@@ -9,6 +9,7 @@ import Footer from '../footer/footer';
 import AppInfo from '../app-info/app-info';
 import Card from '../card/card';
 import Dropzone from '../dropzone/dropzone';
+import RatingStars from '../ratingStars/ratingStars';
 import Controls from '../controls/controls';
 import ConverterReport from '../converterReport/converterReport';
 import SvghmiPreferences from '../svghmi-preferences/svghmi-preferences';
@@ -109,6 +110,7 @@ function Main() {
   };
   return (
     <>
+      <RatingStars />
       <Navbar />
       <Header />
       <AppInfo />
